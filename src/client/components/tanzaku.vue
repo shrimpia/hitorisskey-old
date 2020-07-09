@@ -9,8 +9,8 @@
 				<mfm v-if="note.text" :text="note.text" :author="note.user" :i="$store.state.i" :custom-emojis="note.emojis"/>
 			</div>
 			<footer class="footer">
-				<button v-if=" note.isMyNote" class="_button button" @click="updateColor">{{ $t('changeColor') }}</button>
-				<button v-if="canDelete" class="_button button" @click="del()">{{ $t('delete') }}</button>
+				<button v-if=" note.isMyNote && isTanabata" class="_button button" @click="updateColor">{{ $t('changeColor') }}</button>
+				<button v-if="canDeletee && isTanabata" class="_button button" @click="del()">{{ $t('delete') }}</button>
 			</footer>
 		</div>
 	</article>
@@ -22,6 +22,7 @@ import Vue from 'vue';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { focusPrev, focusNext } from '../scripts/focus';
 import { tanzakuColors } from '../../types';
+import { isTanabata } from '../../misc/is-tanabata';
 export default Vue.extend({
 
 	props: {
@@ -44,6 +45,9 @@ export default Vue.extend({
 				'down|j|tab': this.focusAfter,
 				'esc': this.blur,
 			};
+		},
+		isTanabata() {
+			return isTanabata();
 		},
 		canDelete() { return this.note.isMyNote || (this.$store.state.i && (this.$store.state.i.isModerator || this.$store.state.i.isAdmin)); },
 	},
