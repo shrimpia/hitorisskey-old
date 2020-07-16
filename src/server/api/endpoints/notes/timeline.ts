@@ -8,8 +8,6 @@ import { generateMuteQuery } from '../../common/generate-mute-query';
 import { activeUsersChart } from '../../../../services/chart';
 import { Brackets } from 'typeorm';
 import { generateRepliesQuery } from '../../common/generate-replies-query';
-import { injectPromo } from '../../common/inject-promo';
-import { injectFeatured } from '../../common/inject-featured';
 
 export const meta = {
 	desc: {

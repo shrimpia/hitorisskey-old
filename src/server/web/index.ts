@@ -140,39 +140,6 @@ router.get('/docs.json', async ctx => {
 	ctx.body = docs;
 });
 
-//#region for crawlers
-// User
-router.get(['/@:user', '/@:user/:sub'], async (ctx, next) => {
-	const { username, host } = parseAcct(ctx.params.user);
-	const user = await Users.findOne({
-		usernameLower: username.toLowerCase(),
-		host,
-		isSuspended: false
-	});
-
-	if (user != null) {
-		const profile = await UserProfiles.findOne(user.id).then(ensure);
-		const meta = await fetchMeta();
-		const me = profile.fields
-			? profile.fields
-				.filter(filed => filed.value != null && filed.value.match(/^https?:/))
-				.map(field => field.value)
-			: [];
-
-		await ctx.render('user', {
-			user, profile, me,
-			sub: ctx.params.sub,
-			instanceName: meta.name || 'Misskey',
-			icon: meta.iconUrl
-		});
-		ctx.set('Cache-Control', 'public, max-age=30');
-	} else {
-		// リモートユーザーなので
-		// モデレータがAPI経由で参照可能にするために404にはしない
-		await next();
-	}
-});
-
 // Note
 router.get('/notes/:note', async ctx => {
 	const note = await Notes.findOne(ctx.params.note);
@@ -184,7 +151,7 @@ router.get('/notes/:note', async ctx => {
 			note: _note,
 			// TODO: Let locale changeable by instance setting
 			summary: getNoteSummary(_note, locales['ja-JP']),
-			instanceName: meta.name || 'Misskey',
+			instanceName: meta.name || 'Hitorisskey',
 			icon: meta.iconUrl
 		});
 
@@ -199,42 +166,6 @@ router.get('/notes/:note', async ctx => {
 
 	ctx.status = 404;
 });
-
-// Page
-router.get('/@:user/pages/:page', async ctx => {
-	const { username, host } = parseAcct(ctx.params.user);
-	const user = await Users.findOne({
-		usernameLower: username.toLowerCase(),
-		host
-	});
-
-	if (user == null) return;
-
-	const page = await Pages.findOne({
-		name: ctx.params.page,
-		userId: user.id
-	});
-
-	if (page) {
-		const _page = await Pages.pack(page);
-		const meta = await fetchMeta();
-		await ctx.render('page', {
-			page: _page,
-			instanceName: meta.name || 'Misskey'
-		});
-
-		if (['public'].includes(page.visibility)) {
-			ctx.set('Cache-Control', 'public, max-age=180');
-		} else {
-			ctx.set('Cache-Control', 'private, max-age=0, must-revalidate');
-		}
-
-		return;
-	}
-
-	ctx.status = 404;
-});
-//#endregion
 
 router.get('/info', async ctx => {
 	const meta = await fetchMeta(true);
@@ -274,8 +205,8 @@ router.get('*', async ctx => {
 	const meta = await fetchMeta();
 	await ctx.render('base', {
 		img: meta.bannerUrl,
-		title: meta.name || 'Misskey',
-		instanceName: meta.name || 'Misskey',
+		title: meta.name || 'Hitorisskey',
+		instanceName: meta.name || 'Hitorisskey',
 		desc: meta.description,
 		icon: meta.iconUrl
 	});

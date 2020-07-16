@@ -104,7 +104,7 @@ export class Note {
 	})
 	public tanabataYear: number | null;
 
-	@Column('enum', { 
+	@Column('enum', {
 		enum: tanzakuColors,
 		nullable: true,
  })
