@@ -64,6 +64,7 @@ import pleaseLogin from '../scripts/please-login';
 import { focusPrev, focusNext } from '../scripts/focus';
 import { url } from '../config';
 import copyToClipboard from '../scripts/copy-to-clipboard';
+import shouldMuteNote from '../scripts/should-mute-note';
 
 export default Vue.extend({
 	
@@ -144,6 +145,9 @@ export default Vue.extend({
 	},
 
 	created() {
+		if (shouldMuteNote(this.$store.state.settings, this.appearNote)) {
+			this.hideThisNote = true;
+		}
 		if (this.$store.getters.isSignedIn) {
 			this.connection = this.$root.stream;
 		}

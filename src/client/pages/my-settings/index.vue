@@ -3,6 +3,7 @@
 	<portal to="icon"><fa :icon="faCog"/></portal>
 	<portal to="title">{{ $t('settings') }}</portal>
 
+	<x-word-mute/>
 	<x-security/>
 	<x-2fa/>
 	<x-integration/>
@@ -17,6 +18,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import XWordMute from './word-mute.vue';
 import XSecurity from './security.vue';
 import X2fa from './2fa.vue';
 import XIntegration from './integration.vue';
@@ -30,6 +32,7 @@ export default Vue.extend({
 	},
 
 	components: {
+		XWordMute,
 		XSecurity,
 		X2fa,
 		XIntegration,

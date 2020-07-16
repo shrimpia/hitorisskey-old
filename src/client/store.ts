@@ -13,6 +13,7 @@ export const defaultSettings = {
 	uploadFolder: null,
 	pastedFileName: 'yyyy-MM-dd HH-mm-ss [{{number}}]',
 	memo: null,
+	mutedWords: [],
 	reactions: ['👍', '❤️', '😆', '🤔', '😮', '🎉', '💢', '😥', '😇', '🍮'],
 };
 
