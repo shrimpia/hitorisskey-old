@@ -518,6 +518,12 @@ allowedEmojiReactions: "許可するリアクション"
 allowedEmojiReactionsDescription: "通常のリアクションに加えて許可する絵文字を設定します。"
 disableShowingAnimatedImages: "画像や絵文字のアニメーションを無効化する"
 changeColor: "色を変更…"
+wordMute: "ワードミュート"
+
+_wordMute:
+  description: "目につくのが嫌な単語や、嫌な話題に使われる単語などをミュートして、タイムラインを快適にしましょう。単語をミュートしている事実は誰にも伝わらないので、安心して設定できます。"
+  words: "ミュートする単語"
+  tips: "改行することで複数の単語を指定できます。半角の空白で単語を区切ることで、それらの単語をすべて含むノートをミュートできます(例:きのこ たけのこ)。"
 
 _tanabata:
   title: "ひとりすきー七夕祭り"

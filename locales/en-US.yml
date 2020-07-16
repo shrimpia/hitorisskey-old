@@ -506,19 +506,25 @@ exploreEveryone: "Explore notes by everyone"
 reportedNotes: "Reported Notes"
 report: "Report"
 reporter: "Reporter"
-enterTheReasonToReportThisNote: 'Enter the reason to report this note'
-reason: 'Reason'
-thisNoteIsDeleted: 'This note has been deleted'
-signupInfo: 'Your entered informations are only needed to login, and they will not be disclosed to any users other than moderators.'
-thisIsAnnouncement: 'Official note by the moderator'
-officialNote: 'Official Note'
-makeNotePrivate: 'Make this note private'
-copyContent: 'Copy the content'
-copyLink: 'Copy the link'
-makeResponse: 'Make a response'
+enterTheReasonToReportThisNote: "Enter the reason to report this note"
+reason: "Reason"
+thisNoteIsDeleted: "This note has been deleted"
+signupInfo: "Your entered informations are only needed to login, and they will not be disclosed to any users other than moderators."
+thisIsAnnouncement: "Official note by the moderator"
+officialNote: "Official Note"
+makeNotePrivate: "Make this note private"
+copyContent: "Copy the content"
+copyLink: "Copy the link"
+makeResponse: "Make a response"
 allowedEmojiReactions: "Allowed Reactions"
 allowedEmojiReactionsDescription: "Assign emojis to allow additional use as a reaction."
 disableShowingAnimatedImages: "Disable animated images and emojis"
+wordMute: "Word Muting"
+
+_wordMute:
+  description: "Mute the words you don't like and make your timeline more comfortable."
+  words: "Words to mute"
+  tips: "Multiple words can be specified by line breaks. You can mute notes that contain all of those words by separating them with whitespace (e.g. coca-cola pepsi)"
 
 _theme:
   explore: "Explore Themes"
