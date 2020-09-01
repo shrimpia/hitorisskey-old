@@ -53,7 +53,7 @@ export default define(meta, async (ps, me) => {
 
 	const isAdminOrModerator = me && (me.isAdmin || me.isModerator);
 
-	if (ps.host !== null) {
+	if (ps.host) {
 		throw new ApiError(meta.errors.noSuchUser);
 	}
 

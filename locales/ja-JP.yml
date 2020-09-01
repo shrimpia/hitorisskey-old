@@ -519,6 +519,11 @@ allowedEmojiReactionsDescription: "通常のリアクションに加えて許可
 disableShowingAnimatedImages: "画像や絵文字のアニメーションを無効化する"
 changeColor: "色を変更…"
 wordMute: "ワードミュート"
+sponsor: "スポンサー"
+premiumSponsor: "プレミアムスポンサー"
+sponsorDescription: "ひとりすきーに寄付して頂いた方々です。"
+thanksForSponsors: "ご協力頂き、ありがとうございます。"
+becomeSponsor: "スポンサーになる"
 
 _wordMute:
   description: "目につくのが嫌な単語や、嫌な話題に使われる単語などをミュートして、タイムラインを快適にしましょう。単語をミュートしている事実は誰にも伝わらないので、安心して設定できます。"

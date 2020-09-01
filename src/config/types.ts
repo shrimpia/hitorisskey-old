@@ -1,3 +1,8 @@
+type Sponsor = string | {
+	name: string,
+	url?: string,
+};
+
 /**
  * ユーザーが設定する必要のある情報
  */
@@ -51,6 +56,12 @@ export type Source = {
 	};
 
 	mediaProxy?: string;
+
+	sponsors: {
+		url?: string,
+		normal: Sponsor[],
+		premium: Sponsor[],
+	}
 };
 
 /**

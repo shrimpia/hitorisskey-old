@@ -142,3 +142,20 @@ id: 'aid'
 
 # Media Proxy
 #mediaProxy: https://example.com/proxy
+
+# Sponsors
+# sponsors:
+#   url: https://hitorisskey.com/new-sponsor
+#   normal:
+#     - AAA
+#     - BBB
+#     - CCC
+#     - DDD
+#   premium:
+#     - name: Tanaka
+#       url: https://hitorisskey.com/sponsors/a
+#     - name: Suzuki
+#       url: https://hitorisskey.com/sponsors/b
+#     - Mikami
+#     - name: Ito
+      

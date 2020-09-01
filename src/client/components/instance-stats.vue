@@ -1,6 +1,6 @@
 <template>
 <div class="zbcjwnqg">
-	<div class="stats" v-if="info">
+	<div class="stats " v-if="info">
 		<div class="_panel">
 			<div>
 				<b><fa :icon="faUser"/>{{ $t('users') }}</b>
@@ -459,16 +459,17 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .zbcjwnqg {
 	> .stats {
-		display: flex;
+		display: grid;
+		gap: var(--margin);
+		grid-auto-flow: column;
+		grid-auto-columns: 1fr;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		margin: calc(0px - var(--margin) / 2);
-		margin-bottom: calc(var(--margin) / 2);
+		margin-bottom: var(--margin);
 
 		> div {
 			display: flex;
 			flex: 1 0 213px;
-			margin: calc(var(--margin) / 2);
 			box-sizing: border-box;
 			padding: 16px 20px;
 

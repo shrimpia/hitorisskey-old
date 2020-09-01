@@ -64,10 +64,9 @@
 				<router-link class="item" active-class="active" to="/docs">
 					<fa :icon="faQuestionCircle" fixed-width/><span class="text">{{ $t('help') }}</span>
 				</router-link>
-				<button class="item _button" @click="more">
-					<fa :icon="faEllipsisH" fixed-width/><span class="text">{{ $t('more') }}</span>
-					<i v-if="otherNavItemIndicated"><fa :icon="faCircle"/></i>
-				</button>
+				<router-link class="item" active-class="active" to="/about">
+					<fa :icon="faInfoCircle" fixed-width/><span class="text">{{ $t('aboutMisskey') }}</span>
+				</router-link>
 				<div class="divider"></div>
 				<router-link class="item" active-class="active" to="/my/settings">
 					<fa :icon="faCog" fixed-width/><span class="text">{{ $t('settings') }}</span>
@@ -136,7 +135,7 @@ import { faArrowLeft, faGripVertical, faSlidersH, faHashtag, faBroadcastTower, f
 import { faLaugh, faComments } from '@fortawesome/free-regular-svg-icons';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { v4 as uuid } from 'uuid';
-import { host, instanceName } from './config';
+import { host } from './config';
 
 const DESKTOP_THRESHOLD = 1100;
 
@@ -163,7 +162,7 @@ export default Vue.extend({
 			isMobile:  window.innerWidth < 650,
 			canBack: false,
 			wallpaper: localStorage.getItem('wallpaper') != null,
-			faArrowLeft, faGripVertical, faSlidersH, faComments, faHashtag, faBroadcastTower, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faLaugh, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faQuestionCircle, faStar
+			faArrowLeft, faGripVertical, faSlidersH, faComments, faHashtag, faBroadcastTower, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faLaugh, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faQuestionCircle, faStar, faInfoCircle
 		};
 	},
 
@@ -318,17 +317,7 @@ export default Vue.extend({
 
 		more(ev) {
 			this.$root.menu({
-				items: [{
-					type: 'link',
-					text: this.$t('aboutX', { x: instanceName || host }),
-					to: '/about',
-					icon: faInfoCircle,
-				}, {
-					type: 'link',
-					text: this.$t('aboutMisskey'),
-					to: '/about-misskey',
-					icon: faInfoCircle,
-				}],
+				items: [],
 				align: 'left',
 				fixed: true,
 				width: 200,
@@ -676,7 +665,6 @@ export default Vue.extend({
 		> main {
 			width: $main-width;
 			min-width: $main-width;
-			box-shadow: 1px 0 0 0 var(--divider), -1px 0 0 0 var(--divider);
 
 			@media (max-width: $side-hide-threshold) {
 				min-width: 0;
@@ -733,6 +721,7 @@ export default Vue.extend({
 		> .widgets {
 			box-sizing: border-box;
 			margin-left: var(--margin);
+			box-shadow: 1px 0 0 0 var(--divider), -1px 0 0 0 var(--divider);
 
 			@media (max-width: $side-hide-threshold) {
 				display: none;

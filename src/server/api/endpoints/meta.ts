@@ -108,6 +108,7 @@ export default define(meta, async (ps, me) => {
 		name: instance.name,
 		uri: config.url,
 		description: instance.description,
+		sponsors: config.sponsors,
 		langs: instance.langs,
 		tosUrl: instance.ToSUrl,
 		repositoryUrl: instance.repositoryUrl,
