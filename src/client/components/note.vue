@@ -11,7 +11,7 @@
 			<x-note-header class="header" :note="appearNote" :mini="true"/>
 			<div class="body" v-if="appearNote.deletedAt == null" ref="noteBody">
 				<p v-if="appearNote.cw != null" class="cw">
-					<mfm v-if="appearNote.cw != ''" class="text" :text="appearNote.cw" :author="appearNote.user" :i="$store.state.i" :custom-emojis="appearNote.emojis" />
+					<mfm v-if="appearNote.cw != ''" class="text" :text="appearNote.cw" :author="appearNote.user" :i="$store.state.i" :custom-emojis="appearNote.emojis" :no-sticker="true"/>
 					<x-cw-button v-model="showContent" :note="appearNote"/>
 				</p>
 				<div class="content" v-show="appearNote.cw == null || showContent">

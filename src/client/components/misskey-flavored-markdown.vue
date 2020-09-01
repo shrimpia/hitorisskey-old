@@ -1,5 +1,5 @@
 <template>
-<mfm-core v-bind="$attrs" class="havbbuyv" :class="{ nowrap: $attrs['nowrap'] }"/>
+<mfm-core v-bind="$attrs" class="havbbuyv" :class="{ nowrap: $attrs['nowrap'], sticker: !$attrs['plain'] && !$attrs['no-sticker'] }"/>
 </template>
 
 <script lang="ts">
@@ -24,7 +24,7 @@ export default Vue.extend({
 		text-overflow: ellipsis;
 	}
 
-	&:not(.nowrap) ::v-deep > .mk-emoji:only-child {
+	&:not(.nowrap).sticker ::v-deep > .mk-emoji:only-child {
 		font-size: 8em;
 		height: 1em;
 		&:hover {
