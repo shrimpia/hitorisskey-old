@@ -24,7 +24,7 @@
 		</div>
 		<div class="_content sponsors">
 			<div style="margin-bottom: 1em" v-text="$t('sponsorDescription')" />
-			<template v-if="meta.sponsors.premium.length > 0">
+			<template v-if="meta.sponsors.premium && meta.sponsors.premium.length > 0">
 				<h1 style="margin-bottom: 1em" v-text="$t('premiumSponsor')" />
 				<ul class="sponsor">
 					<li v-for="s in meta.sponsors.premium" :key="s.name || s">
@@ -33,7 +33,7 @@
 					</li>
 				</ul>
 			</template>
-			<template v-if="meta.sponsors.normal.length > 0">
+			<template v-if="meta.sponsors.normal && meta.sponsors.normal.length > 0">
 				<h1 style="margin-bottom: 1em" v-text="$t('sponsor')" />
 				<ul class="sponsor">
 					<li v-for="s in meta.sponsors.normal" :key="s.name || s">
