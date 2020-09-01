@@ -5,7 +5,7 @@
 
 	<mk-instance-stats style="margin-bottom: var(--margin);"/>
 
-	<section class="_card logs">
+	<section class="_card _vMargin logs">
 		<div class="_title"><fa :icon="faStream"/> {{ $t('serverLogs') }}</div>
 		<div class="_content">
 			<div class="_inputs">
@@ -37,7 +37,7 @@
 		</div>
 	</section>
 
-	<section class="_card chart">
+	<section class="_card _vMargin chart">
 		<div class="_title"><fa :icon="faMicrochip"/> {{ $t('cpuAndMemory') }}</div>
 		<div class="_content" style="margin-top: -8px; margin-bottom: -12px;">
 			<canvas ref="cpumem"></canvas>
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="_card chart">
+	<section class="_card _vMargin chart">
 		<div class="_title"><fa :icon="faHdd"/> {{ $t('disk') }}</div>
 		<div class="_content" style="margin-top: -8px; margin-bottom: -12px;">
 			<canvas ref="disk"></canvas>
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 	</section>
-	<section class="_card chart">
+	<section class="_card _vMargin chart">
 		<div class="_title"><fa :icon="faExchangeAlt"/> {{ $t('network') }}</div>
 		<div class="_content" style="margin-top: -8px; margin-bottom: -12px;">
 			<canvas ref="net"></canvas>
@@ -84,7 +84,7 @@
 		</div>
 	</section>
 
-	<section class="_card info">
+	<section class="_card _vMargin info">
 		<div class="_content table">
 			<div><b>Hitorisskey</b><span>v{{ version }}</span></div>
 		</div>

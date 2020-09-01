@@ -3,9 +3,9 @@
 	<portal to="icon"><fa :icon="faSlidersH"/></portal>
 	<portal to="title">{{ $t('customize') }}</portal>
 
-	<x-theme/>
+	<x-theme class="_vMargin"/>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faMusic"/> {{ $t('sounds') }}</div>
 		<div class="_content">
 			<mk-range v-model="sfxVolume" :min="0" :max="1" :step="0.1">
@@ -27,7 +27,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faSlidersH"/> {{ $t('accessibility') }}</div>
 		<div class="_content">
 			<mk-switch v-model="autoReload">

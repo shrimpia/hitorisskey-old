@@ -3,7 +3,7 @@
 	<portal to="icon"><fa :icon="faLaugh"/></portal>
 	<portal to="title">{{ $t('customEmojis') }}</portal>
 
-	<section class="_card local">
+	<section class="_card _vMargin local">
 		<div class="_title"><fa :icon="faLaugh"/> {{ $t('customEmojis') }}</div>
 		<div class="_content">
 			<mk-pagination :pagination="pagination" class="emojis" ref="emojis">

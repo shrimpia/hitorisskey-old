@@ -3,7 +3,7 @@
 	<portal to="icon"><fa :icon="faCog"/></portal>
 	<portal to="title">{{ $t('settings') }}</portal>
 
-	<section class="_card info">
+	<section class="_card _vMargin info">
 		<div class="_title"><fa :icon="faInfoCircle"/> {{ $t('basicInfo') }}</div>
 		<div class="_content">
 			<mk-input v-model="name">{{ $t('instanceName') }}</mk-input>
@@ -19,7 +19,7 @@
 		</div>
 	</section>
 
-	<section class="_card info">
+	<section class="_card _vMargin info">
 		<div class="_content">
 			<mk-input v-model="maxNoteTextLength" type="number" :save="() => save()" style="margin:0;"><template #icon><fa :icon="faPencilAlt"/></template>{{ $t('maxNoteTextLength') }}</mk-input>
 			<mk-switch v-model="enableRegistration" @change="save()">{{ $t('enableRegistration') }}</mk-switch>
@@ -27,7 +27,7 @@
 		</div>
 	</section>
 
-	<section class="_card info">
+	<section class="_card _vMargin info">
 		<div class="_title"><fa :icon="faLaugh"/> {{ $t('allowedEmojiReactions') }}</div>
 		<div class="_content">
 			<mk-input v-model="allowedReactions" style="font-family: 'Segoe UI Emoji', 'Noto Color Emoji', Roboto, HelveticaNeue, Arial, sans-serif">
@@ -39,7 +39,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faShieldAlt"/> {{ $t('hcaptcha') }}</div>
 		<div class="_content">
 			<mk-switch v-model="enableHcaptcha" ref="enableHcaptcha">{{ $t('enableHcaptcha') }}</mk-switch>
@@ -57,7 +57,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faShieldAlt"/> {{ $t('recaptcha') }}</div>
 		<div class="_content">
 			<mk-switch v-model="enableRecaptcha" ref="enableRecaptcha">{{ $t('enableRecaptcha') }}</mk-switch>
@@ -75,7 +75,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faCloud"/> {{ $t('files') }}</div>
 		<div class="_content">
 			<mk-input v-model="localDriveCapacityMb" type="number">{{ $t('driveCapacityPerLocalAccount') }}<template #suffix>MB</template><template #desc>{{ $t('inMb') }}</template></mk-input>
@@ -85,7 +85,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faCloud"/> {{ $t('objectStorage') }}</div>
 		<div class="_content">
 			<mk-switch v-model="useObjectStorage">{{ $t('useObjectStorage') }}</mk-switch>
@@ -112,7 +112,7 @@
 		</div>
 	</section>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title"><fa :icon="faShareAlt"/> {{ $t('integration') }}</div>
 		<div class="_content">
 			<header><fa :icon="faTwitter"/> Twitter</header>

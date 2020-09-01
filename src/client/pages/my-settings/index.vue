@@ -3,11 +3,11 @@
 	<portal to="icon"><fa :icon="faCog"/></portal>
 	<portal to="title">{{ $t('settings') }}</portal>
 
-	<x-word-mute/>
-	<x-security/>
-	<x-2fa/>
-	<x-integration/>
-	<x-api/>
+	<x-word-mute class="_vMargin"/>
+	<x-security class="_vMargin"/>
+	<x-2fa class="_vMargin"/>
+	<x-integration class="_vMargin"/>
+	<x-api class="_vMargin"/>
 
 	<router-link class="_panel _buttonPrimary" to="/my/apps" style="margin: var(--margin) auto;">{{ $t('installedApps') }}</router-link>
 

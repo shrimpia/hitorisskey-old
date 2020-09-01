@@ -3,7 +3,7 @@
 	<portal to="title" v-if="user"><mk-user-name :user="user" :nowrap="false" class="name"/></portal>
 	<portal to="avatar" v-if="user"><mk-avatar class="avatar" :user="user" :disable-preview="true"/></portal>
 
-	<section class="_card">
+	<section class="_card _vMargin">
 		<div class="_title">
 			<mk-avatar class="avatar" :user="user"/>
 			<mk-user-name class="name" :user="user"/>
