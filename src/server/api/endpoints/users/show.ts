@@ -1,7 +1,5 @@
 import $ from 'cafy';
-import { resolveUser } from '../../../../remote/resolve-user';
 import define from '../../define';
-import { apiLogger } from '../../logger';
 import { ApiError } from '../../error';
 import { ID } from '../../../../misc/cafy-id';
 import { Users } from '../../../../models';
@@ -40,13 +38,6 @@ export const meta = {
 	},
 
 	errors: {
-		failedToResolveRemoteUser: {
-			message: 'Failed to resolve remote user.',
-			code: 'FAILED_TO_RESOLVE_REMOTE_USER',
-			id: 'ef7b9be4-9cba-4e6f-ab41-90ed171c7d3c',
-			kind: 'server' as const
-		},
-
 		noSuchUser: {
 			message: 'No such user.',
 			code: 'NO_SUCH_USER',
@@ -56,27 +47,21 @@ export const meta = {
 };
 
 export default define(meta, async (ps, me) => {
-	let user;
-
 	// 仮想ユーザーを求めていれば返す
 	const v = populateVirtualUser();
 	if (ps.userId === v.id || ps.username === v.username) return v;
 
 	const isAdminOrModerator = me && (me.isAdmin || me.isModerator);
 
-	// Lookup user
-	if (typeof ps.host === 'string' && typeof ps.username === 'string') {
-		user = await resolveUser(ps.username, ps.host).catch(e => {
-			apiLogger.warn(`failed to resolve remote user: ${e}`);
-			throw new ApiError(meta.errors.failedToResolveRemoteUser);
-		});
-	} else {
-		const q: any = ps.userId != null
-			? { id: ps.userId }
-			: { usernameLower: ps.username!.toLowerCase(), host: null };
-
-		user = await Users.findOne(q);
+	if (ps.host !== null) {
+		throw new ApiError(meta.errors.noSuchUser);
 	}
+
+	const q: any = ps.userId != null
+		? { id: ps.userId }
+		: { usernameLower: ps.username!.toLowerCase(), host: null };
+
+	const user = await Users.findOne(q);
 
 	if (user == null || (!isAdminOrModerator && user.isSuspended)) {
 		throw new ApiError(meta.errors.noSuchUser);

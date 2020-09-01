@@ -70,7 +70,7 @@ export async function masterMain() {
 		process.exit(1);
 	}
 
-	bootLogger.succ('Misskey initialized');
+	bootLogger.succ('Hitorisskey initialized');
 
 	if (!program.disableClustering) {
 		await spawnWorkers(config.clusterLimit);
