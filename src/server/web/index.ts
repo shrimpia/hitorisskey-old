@@ -2,7 +2,6 @@
  * Web Client Server
  */
 
-import * as os from 'os';
 import * as fs from 'fs';
 import ms = require('ms');
 import * as Koa from 'koa';
@@ -16,12 +15,8 @@ import * as MarkdownIt from 'markdown-it';
 import { fetchMeta } from '../../misc/fetch-meta';
 import { genOpenapiSpec } from '../api/openapi/gen-spec';
 import config from '../../config';
-import { Users, Notes, Emojis, UserProfiles, Pages } from '../../models';
-import parseAcct from '../../misc/acct/parse';
+import { Notes } from '../../models';
 import getNoteSummary from '../../misc/get-note-summary';
-import { ensure } from '../../prelude/ensure';
-import { getConnection } from 'typeorm';
-import redis from '../../db/redis';
 import locales = require('../../../locales');
 
 const markdown = MarkdownIt({
@@ -78,8 +73,6 @@ router.get(/^\/sw\.(.+?)\.js$/, async ctx => {
 	});
 });
 
-// Manifest
-router.get('/manifest.json', require('./manifest'));
 
 router.get('/robots.txt', async ctx => {
 	await send(ctx as any, '/assets/robots.txt', {
@@ -88,13 +81,6 @@ router.get('/robots.txt', async ctx => {
 });
 
 //#endregion
-
-// Docs
-router.get('/api-doc', async ctx => {
-	await send(ctx as any, '/assets/redoc.html', {
-		root: client
-	});
-});
 
 // URL preview endpoint
 router.get('/url', require('./url-preview'));
@@ -166,35 +152,6 @@ router.get('/notes/:note', async ctx => {
 
 	ctx.status = 404;
 });
-
-router.get('/info', async ctx => {
-	const meta = await fetchMeta(true);
-	const emojis = await Emojis.find({
-		where: { host: null }
-	});
-	await ctx.render('info', {
-		version: config.version,
-		machine: os.hostname(),
-		os: os.platform(),
-		node: process.version,
-		psql: await getConnection().query('SHOW server_version').then(x => x[0].server_version),
-		redis: redis.server_info.redis_version,
-		cpu: {
-			model: os.cpus()[0].model,
-			cores: os.cpus().length
-		},
-		emojis: emojis,
-		meta: meta,
-		originalUsersCount: await Users.count({ host: null }),
-		originalNotesCount: await Notes.count({ userHost: null })
-	});
-});
-
-const override = (source: string, target: string, depth: number = 0) =>
-	[, ...target.split('/').filter(x => x), ...source.split('/').filter(x => x).splice(depth)].join('/');
-
-router.get('/othello', async ctx => ctx.redirect(override(ctx.URL.pathname, 'games/reversi', 1)));
-router.get('/reversi', async ctx => ctx.redirect(override(ctx.URL.pathname, 'games')));
 
 router.get('/flush', async ctx => {
 	await ctx.render('flush');

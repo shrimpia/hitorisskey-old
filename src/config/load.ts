@@ -5,7 +5,6 @@
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 import { Source, Mixin } from './types';
-import * as meta from '../meta.json';
 
 /**
  * Path of configuration directory
@@ -30,7 +29,6 @@ export default function load() {
 
 	config.port = config.port || parseInt(process.env.PORT || '', 10);
 
-	mixin.version = meta.version;
 	mixin.host = url.host;
 	mixin.hostname = url.hostname;
 	mixin.scheme = url.protocol.replace(/:$/, '');
@@ -39,7 +37,7 @@ export default function load() {
 	mixin.apiUrl = `${mixin.scheme}://${mixin.host}/api`;
 	mixin.authUrl = `${mixin.scheme}://${mixin.host}/auth`;
 	mixin.driveUrl = `${mixin.scheme}://${mixin.host}/files`;
-	mixin.userAgent = `Misskey/${meta.version} (${config.url})`;
+	mixin.userAgent = `Hitorisskey/ (${config.url})`;
 
 	if (!config.redis.prefix) config.redis.prefix = mixin.host;
 

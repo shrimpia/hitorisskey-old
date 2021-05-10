@@ -12,22 +12,12 @@ import { lessThan } from '../prelude/array';
 import { program } from '../argv';
 import { showMachineInfo } from '../misc/show-machine-info';
 import { initDb } from '../db/postgre';
-import * as meta from '../meta.json';
 
 const logger = new Logger('core', 'cyan');
 const bootLogger = logger.createSubLogger('boot', 'magenta', false);
 
 function greet() {
 	if (!program.quiet) {
-		//#region Misskey logo
-		const v = `v${meta.version}`;
-		console.log('  _____ _         _           ');
-		console.log(' |     |_|___ ___| |_ ___ _ _ ');
-		console.log(' | | | | |_ -|_ -| \'_| -_| | |');
-		console.log(' |_|_|_|_|___|___|_,_|___|_  |');
-		console.log(' ' + chalk.gray(v) + ('                        |___|\n'.substr(v.length)));
-		//#endregion
-
 		console.log(' Hitorisskey is an open-source decentralized microblogging platform forked Misskey.');
 		console.log(chalk.keyword('orange')(' If you like Misskey, please donate to support development. https://www.patreon.com/syuilo'));
 
@@ -36,7 +26,7 @@ function greet() {
 	}
 
 	bootLogger.info('Welcome to Hitorisskey!');
-	bootLogger.info(`Hitorisskey v${meta.version}`, null, true);
+	// bootLogger.info(`Hitorisskey v${meta.version}`, null, true);
 }
 
 /**

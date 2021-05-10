@@ -20,7 +20,7 @@ gulp.task('build:copy:views', () =>
 	gulp.src('./src/server/web/views/**/*').pipe(gulp.dest('./built/server/web/views'))
 );
 
-gulp.task('build:copy', gulp.parallel('build:copy:views', 'build:copy:locales', 'build:copy:fonts', () =>
+gulp.task('build:copy', gulp.parallel('build:copy:views', () =>
 	gulp.src([
 		'./src/emojilist.json',
 		'./src/server/web/views/**/*',

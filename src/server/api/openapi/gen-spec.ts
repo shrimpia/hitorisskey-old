@@ -13,7 +13,6 @@ export function genOpenapiSpec(lang = 'ja-JP') {
 			version: 'v1',
 			title: 'Hitorisskey API',
 			description: getDescription(lang),
-			'x-logo': { url: '/assets/api-doc.png' }
 		},
 
 		externalDocs: {
