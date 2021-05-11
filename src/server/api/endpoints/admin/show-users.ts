@@ -82,13 +82,11 @@ export default define(meta, async (ps, me) => {
 	}
 
 	switch (ps.sort) {
-		case '+follower': query.orderBy('user.followersCount', 'DESC'); break;
-		case '-follower': query.orderBy('user.followersCount', 'ASC'); break;
-		case '+createdAt': query.orderBy('user.createdAt', 'DESC'); break;
-		case '-createdAt': query.orderBy('user.createdAt', 'ASC'); break;
-		case '+updatedAt': query.orderBy('user.updatedAt', 'DESC'); break;
-		case '-updatedAt': query.orderBy('user.updatedAt', 'ASC'); break;
-		default: query.orderBy('user.id', 'ASC'); break;
+		case '+createdAt': query.orderBy('user.createdAt', 'DESC', 'NULLS LAST'); break;
+		case '-createdAt': query.orderBy('user.createdAt', 'ASC', 'NULLS LAST'); break;
+		case '+updatedAt': query.orderBy('user.updatedAt', 'DESC', 'NULLS LAST'); break;
+		case '-updatedAt': query.orderBy('user.updatedAt', 'ASC', 'NULLS LAST'); break;
+		default: query.orderBy('user.id', 'ASC', 'NULLS LAST'); break;
 	}
 
 	query.take(ps.limit!);
