@@ -100,65 +100,16 @@ export const meta = {
 };
 
 export default define(meta, async (ps, user) => {
-	const hasFollowing = (await Followings.count({
-		where: {
-			followerId: user.id,
-		},
-		take: 1
-	})) !== 0;
-
-	//#region Construct query
-	const followingQuery = Followings.createQueryBuilder('following')
-		.select('following.followeeId')
-		.where('following.followerId = :followerId', { followerId: user.id });
-
 	const query = makePaginationQuery(Notes.createQueryBuilder('note'),
 			ps.sinceId, ps.untilId, ps.sinceDate, ps.untilDate)
 		.andWhere(new Brackets(qb => { qb
 			.where('note.userId = :meId', { meId: user.id });
-			if (hasFollowing) qb.orWhere(`note.userId IN (${ followingQuery.getQuery() })`);
 		}))
-		.leftJoinAndSelect('note.user', 'user')
-		.setParameters(followingQuery.getParameters());
+		.leftJoinAndSelect('note.user', 'user');
 
-	generateRepliesQuery(query, user);
 	generateVisibilityQuery(query, user);
 	generateMuteQuery(query, user);
 	query.andWhere('note."tanabataYear" IS NULL');
-
-	if (ps.includeMyRenotes === false) {
-		query.andWhere(new Brackets(qb => {
-			qb.orWhere('note.userId != :meId', { meId: user.id });
-			qb.orWhere('note.renoteId IS NULL');
-			qb.orWhere('note.text IS NOT NULL');
-			qb.orWhere('note.fileIds != \'{}\'');
-			qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
-		}));
-	}
-
-	if (ps.includeRenotedMyNotes === false) {
-		query.andWhere(new Brackets(qb => {
-			qb.orWhere('note.renoteUserId != :meId', { meId: user.id });
-			qb.orWhere('note.renoteId IS NULL');
-			qb.orWhere('note.text IS NOT NULL');
-			qb.orWhere('note.fileIds != \'{}\'');
-			qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
-		}));
-	}
-
-	if (ps.includeLocalRenotes === false) {
-		query.andWhere(new Brackets(qb => {
-			qb.orWhere('note.renoteUserHost IS NOT NULL');
-			qb.orWhere('note.renoteId IS NULL');
-			qb.orWhere('note.text IS NOT NULL');
-			qb.orWhere('note.fileIds != \'{}\'');
-			qb.orWhere('0 < (SELECT COUNT(*) FROM poll WHERE poll."noteId" = note.id)');
-		}));
-	}
-
-	if (ps.withFiles) {
-		query.andWhere('note.fileIds != \'{}\'');
-	}
 	//#endregion
 
 	const timeline = await query.take(ps.limit!).getMany();
