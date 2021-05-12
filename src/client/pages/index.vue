@@ -1,5 +1,5 @@
 <template>
-<component :is="$store.getters.isSignedIn || src === 'everyone' ? 'home' : 'welcome'" :show-title="showTitle" :src="src"></component>
+<component :is="$store.getters.isSignedIn || $route.path === '/everyone' ? 'home' : 'welcome'" :show-title="showTitle" :src="src"></component>
 </template>
 
 <script lang="ts">

@@ -48,9 +48,10 @@ export default Vue.extend({
 			type: Boolean,
 			required: true
 		},
-		src: {
+		propSrc: {
 			type: String,
-			required: true
+			required: false,
+			default: null,
 		}
 	},
 
@@ -76,6 +77,10 @@ export default Vue.extend({
 		meta() {
 			return this.$store.state.instance.meta;
 		},
+
+		src() {
+			return this.$route.path === '/everyone' ? 'everyone' : this.$store.state.device.src;
+		},
 	},
 
 	watch: {
@@ -93,6 +98,11 @@ export default Vue.extend({
 		observer.observe(form);
 
 		this.updateFormState();
+
+		if (this.propSrc) {
+			this.$store.commit('device/set', { key: 'src', value: this.propSrc });
+			console.log(this.propSrc);
+		}
 
 		window.addEventListener('resize', this.onResize, { passive: true });
 		this.onResize();
@@ -133,7 +143,6 @@ export default Vue.extend({
 			this.isMobile = window.innerWidth < 650;
 
 			if (!this.isMobile) {
-				console.log('is not mobile');
 				this.formStyle = { transform: undefined };
 				return;
 			}

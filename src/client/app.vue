@@ -40,12 +40,22 @@
 	<transition name="nav">
 		<nav class="nav" ref="nav" v-show="showNav">
 			<div>
-				<router-link class="item" active-class="active" to="/" exact>
-					<fa :icon="$store.getters.isSignedIn ? faUser : faHome" fixed-width/><span class="text">{{ $store.getters.isSignedIn ? $t('_timelines.myself') : $t('home') }}</span>
+				<button class="item _button index" :class="{active: src === 'myself'}" @click="top(); setTl('myself')" v-if="$route.name === 'index'">
+					<fa :icon="$store.getters.isSignedIn ? faUser : faHome" fixed-width/>
+					<span class="text">{{ $store.getters.isSignedIn ? $t('_timelines.myself') : $t('home') }}</span>
+				</button>
+				<router-link class="item index" active-class="active" @click.native="setTl('myself')" to="/" exact v-else>
+					<fa :icon="$store.getters.isSignedIn ? faUser : faHome" fixed-width/>
+					<span class="text">{{ $store.getters.isSignedIn ? $t('_timelines.myself') : $t('home') }}</span>
 				</router-link>
 				<template v-if="$store.getters.isSignedIn">
-					<router-link class="item" active-class="active" to="/everyone" exact>
-						<fa :icon="faUsers" fixed-width/><span class="text">{{ $t('_timelines.everyone') }}</span>
+					<button class="item _button index" :class="{active: src === 'everyone'}" @click="top(); setTl('everyone')" v-if="$route.name === 'index'">
+						<fa :icon="faUsers" fixed-width/>
+						<span class="text">{{ $t('_timelines.everyone') }}</span>
+					</button>
+					<router-link class="item index" active-class="active" @click.native="setTl('everyone')" to="/" exact v-else>
+						<fa :icon="faUsers" fixed-width/>
+						<span class="text">{{ $t('_timelines.everyone') }}</span>
 					</router-link>
 					<router-link v-if="new Date().getMonth() + 1 === 7" class="item" active-class="active" to="/tanabata">
 						<fa :icon="faStar" fixed-width/><span class="text">{{ $t('_tanabata.title') }}</span>
@@ -180,6 +190,10 @@ export default Vue.extend({
 		otherNavItemIndicated(): boolean {
 			if (!this.$store.getters.isSignedIn) return false;
 			return false;
+		},
+
+		src() {
+			return this.$store.state.device.src;
 		},
 	},
 
@@ -365,7 +379,11 @@ export default Vue.extend({
 
 		saveHome() {
 			this.$store.commit('deviceUser/setWidgets', this.widgets);
-		}
+		},
+
+		setTl(value: string) {
+			this.$store.commit('device/set', { key: 'src', value });
+		},
 	}
 });
 </script>

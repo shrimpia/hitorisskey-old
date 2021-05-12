@@ -11,8 +11,8 @@ let indexScrollPos = 0;
 export const router = new VueRouter({
 	mode: 'history',
 	routes: [
-		{ path: '/', name: 'index', component: MkIndex, props: { src: 'myself' } },
-		{ path: '/everyone', name: 'everyone', component: MkIndex, props: { src: 'everyone' } },
+		{ path: '/', name: 'index', component: MkIndex },
+		{ path: '/everyone', name: 'everyone', component: MkIndex },
 		{ path: '/announcements', component: page('announcements') },
 		{ path: '/about', component: page('about') },
 		{ path: '/about-misskey', component: page('about-misskey') },

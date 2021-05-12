@@ -46,6 +46,7 @@ export const defaultDeviceSettings = {
 	postFormAppear: false,
 	disablePagesScript: true,
 	enableInfiniteScroll: true,
+	src: 'myself' as 'myself' | 'everyone' | 'official' | 'topic',
 	sfxVolume: 0.3,
 	sfxNote: 'syuilo/down',
 	sfxNoteMy: 'syuilo/up',
