@@ -28,6 +28,7 @@ export const router = new VueRouter({
 		{ path: '/instance/emojis', component: page('instance/emojis') },
 		{ path: '/instance/users', component: page('instance/users') },
 		{ path: '/instance/users/:user', component: page('instance/users.user') },
+		{ path: '/instance/users/:user/notes', component: page('instance/users.user.notes') },
 		{ path: '/instance/files', component: page('instance/files') },
 		{ path: '/instance/queue', component: page('instance/queue') },
 		{ path: '/instance/settings', component: page('instance/settings') },

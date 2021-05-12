@@ -20,10 +20,12 @@
 				<mk-switch @change="toggleSuspend()" v-model="suspended">{{ $t('suspend') }}</mk-switch>
 			</div>
 			<div style="flex: 1; padding-left: 1em;">
-				<mk-button @click="updateRemoteUser"><fa :icon="faSync"/> {{ $t('updateRemoteUser') }}</mk-button>
 				<mk-button @click="resetPassword"><fa :icon="faKey"/> {{ $t('resetPassword') }}</mk-button>
 				<mk-button @click="deleteAllFiles"><fa :icon="faTrashAlt"/> {{ $t('deleteAllFiles') }}</mk-button>
 			</div>
+		</div>
+		<div class="_content">
+			<router-link :to="`${user.id}/notes`" class="_link"><fa :icon="faUser"/> {{ $t('timeline') }}</router-link>
 		</div>
 		<div class="_content rawdata">
 			<pre><code>{{ JSON.stringify(info, null, 2) }}</code></pre>
@@ -34,7 +36,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { faTimes, faBookmark, faKey, faSync, faMicrophoneSlash, faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faBookmark, faKey, faSync, faMicrophoneSlash, faExternalLinkSquareAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSnowflake, faTrashAlt, faBookmark as farBookmark  } from '@fortawesome/free-regular-svg-icons';
 import MkButton from '../../components/ui/button.vue';
 import MkSwitch from '../../components/ui/switch.vue';
@@ -53,7 +55,7 @@ export default Vue.extend({
 			moderator: false,
 			silenced: false,
 			suspended: false,
-			faTimes, faBookmark, farBookmark, faKey, faSync, faMicrophoneSlash, faSnowflake, faTrashAlt, faExternalLinkSquareAlt
+			faTimes, faBookmark, farBookmark, faKey, faSync, faMicrophoneSlash, faSnowflake, faTrashAlt, faExternalLinkSquareAlt, faUser
 		};
 	},
 
