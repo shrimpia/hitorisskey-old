@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+		"allowJs": true,
+		"noEmitOnError": false,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": true,
+		"noFallthroughCasesInSwitch": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": false,
+    "sourceMap": true,
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "react",
+    "moduleResolution": "node",
+		"esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "esnext",
+      "dom",
+    ],
+  }
+}
