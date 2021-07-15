@@ -1,6 +1,23 @@
 {
   "presets": [
-    "@babel/preset-env", "@babel/preset-react", "@babel/typescript"
+    "@babel/preset-env",
+		"@babel/preset-react",
+		"@babel/typescript",
+		"@emotion/babel-preset-css-prop"
   ],
-  "plugins": ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread"]
+  "plugins": [
+		"@babel/proposal-class-properties",
+		"@babel/proposal-object-rest-spread",
+		["@babel/plugin-transform-runtime", { "corejs":3 }],
+		// [
+    //   "@emotion",
+    //   {
+    //     // sourceMap is on by default but source maps are dead code eliminated in production
+    //     "sourceMap": true,
+    //     "autoLabel": "dev-only",
+    //     "labelFormat": "[local]",
+    //     "cssPropOptimization": true
+    //   }
+		// ]
+	]
 }

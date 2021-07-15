@@ -1,6 +1,6 @@
-declare const _LANGS_: string[];
-declare const _VERSION_: string;
-declare const _ENV_: string;
+// declare const _LANGS_: string[];
+// declare const _VERSION_: string;
+// declare const _ENV_: string;
 
 const address = new URL(location.href);
 const siteName = (document.querySelector('meta[property="og:site_name"]') as HTMLMetaElement)?.content;
@@ -11,7 +11,8 @@ export const url = address.origin;
 export const apiUrl = url + '/api';
 export const wsUrl = url.replace('http://', 'ws://').replace('https://', 'wss://') + '/streaming';
 export const lang = localStorage.getItem('lang');
-export const langs = _LANGS_;
-export const version = _VERSION_;
-export const env = _ENV_;
+export const isMobile = /(iPhone|Android)/.test(navigator.userAgent);
+// export const langs = _LANGS_;
+// export const version = _VERSION_;
+// export const env = _ENV_;
 export const instanceName = siteName === 'Hitorisskey' ? null : siteName;
