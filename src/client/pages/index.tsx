@@ -81,7 +81,7 @@ export const Index: React.VFC = () => {
 				<>
 					<header className="hstack dense mb-2">
 						<button className="btn flat" onClick={() => setState('welcome')}>
-							<i className="fas fa-arrow-left"></i>
+							<i className="bi bi-arrow-left"></i>
 						</button>
 						<h2 className="mb-0">{isRegister ? '新規登録' : 'ログイン'}</h2>
 					</header>
