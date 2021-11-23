@@ -9933,8 +9933,8 @@ ws@7.3.0:
   integrity sha512-iFtXzngZVXPGgpTlP1rBqsUK82p9tKqsWRPg5L56egiljujJT3vGAYnHANvFxBieXrTFavhzhxW52jnaWV+w2w==
 
 xeltica-ui@xeltica/ui:
-  version "1.0.0-alpha.6"
-  resolved "https://codeload.github.com/xeltica/ui/tar.gz/32461871a40b3b167489fe7b5a9a48349b1b2d12"
+  version "1.0.0-alpha.7"
+  resolved "https://codeload.github.com/xeltica/ui/tar.gz/103cf59ae6f0bbb16720102d4f463a698f6621d1"
 
 xev@2.0.1:
   version "2.0.1"
