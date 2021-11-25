@@ -54,15 +54,11 @@
 		<div class="_content table">
 			<div v-if="meta.maintainerName"><b v-text="$t('administrator')"/><span v-text="meta.maintainerName"/></div>
 			<div v-if="meta.maintainerEmail"><b/><span v-text="meta.maintainerEmail" /></div>
-			<div><b v-text="$t('version')" /><span v-text="'v' + version" /></div>
 		</div>
 		<div class="_content" v-if="meta.tosUrl">
 			<ul>
 				<li v-if="meta.tosUrl"><a :href="meta.tosUrl" v-text="$t('tos')" /></li>
 			</ul>
-		</div>
-		<div class="_content table">
-			<div><b>Hitorisskey</b><span>v{{ version }}</span></div>
 		</div>
 	</section>
 

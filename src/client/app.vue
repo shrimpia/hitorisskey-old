@@ -22,11 +22,6 @@
 				</div>
 			</transition>
 		</div>
-		<div class="sub">
-			<button v-if="widgetsEditMode" class="_button edit active" @click="widgetsEditMode = false"><fa :icon="faGripVertical"/></button>
-			<button v-else class="_button edit" @click="widgetsEditMode = true"><fa :icon="faGripVertical"/></button>
-			<x-clock v-if="isDesktop" class="clock"/>
-		</div>
 	</header>
 
 	<transition name="nav-back">
@@ -71,9 +66,10 @@
 				<button class="item _button" :class="{ active: $route.path === '/instance' || $route.path.startsWith('/instance/') }" v-if="$store.getters.isSignedIn && ($store.state.i.isAdmin || $store.state.i.isModerator)" @click="oepnInstanceMenu">
 					<fa :icon="faServer" fixed-width/><span class="text">{{ $t('instance') }}</span>
 				</button>
-				<router-link class="item" active-class="active" to="/docs">
+				<!-- 再整備中 -->
+				<!-- <router-link class="item" active-class="active" to="/docs">
 					<fa :icon="faQuestionCircle" fixed-width/><span class="text">{{ $t('help') }}</span>
-				</router-link>
+				</router-link> -->
 				<router-link class="item" active-class="active" to="/about">
 					<fa :icon="faInfoCircle" fixed-width/><span class="text">{{ $t('aboutMisskey') }}</span>
 				</router-link>
@@ -104,35 +100,6 @@
 				</small>
 			</div>
 		</main>
-
-		<div class="widgets">
-			<div ref="widgets" :class="{ edit: widgetsEditMode }">
-				<template v-if="isDesktop && $store.getters.isSignedIn">
-					<template v-if="widgetsEditMode">
-						<mk-button primary @click="addWidget" class="add"><fa :icon="faPlus"/></mk-button>
-						<x-draggable
-							:list="widgets"
-							handle=".handle"
-							animation="150"
-							class="sortable"
-							@sort="onWidgetSort"
-						>
-							<div v-for="widget in widgets" class="customize-container _panel" :key="widget.id">
-								<header>
-									<span class="handle"><fa :icon="faBars"/></span>{{ $t('_widgets.' + widget.name) }}<button class="remove _button" @click="removeWidget(widget)"><fa :icon="faTimes"/></button>
-								</header>
-								<div @click="widgetFunc(widget.id)">
-									<component :is="`mkw-${widget.name}`" :widget="widget" :ref="widget.id" :is-customize-mode="true"/>
-								</div>
-							</div>
-						</x-draggable>
-					</template>
-					<template v-else>
-						<component class="widget" v-for="widget in widgets" :is="`mkw-${widget.name}`" :key="widget.id" :ref="widget.id" :widget="widget"/>
-					</template>
-				</template>
-			</div>
-		</div>
 	</div>
 
 	<stream-indicator v-if="$store.getters.isSignedIn"/>
@@ -306,11 +273,6 @@ export default Vue.extend({
 					text: this.$t('files'),
 					to: '/instance/files',
 					icon: faCloud,
-				}, {
-					type: 'link',
-					text: this.$t('jobQueue'),
-					to: '/instance/queue',
-					icon: faExchangeAlt,
 				}, {
 					type: 'link',
 					text: this.$t('announcements'),

@@ -8,7 +8,6 @@ import extractEmojis from '../../misc/extract-emojis';
 import extractHashtags from '../../misc/extract-hashtags';
 import { Note } from '../../models/entities/note';
 import { Users, Notes } from '../../models';
-import { DriveFile } from '../../models/entities/drive-file';
 import { App } from '../../models/entities/app';
 import { getConnection } from 'typeorm';
 import { User } from '../../models/entities/user';
@@ -16,6 +15,7 @@ import { genId } from '../../misc/gen-id';
 import { notesChart, perUserNotesChart, activeUsersChart } from '../chart';
 import { Poll, IPoll } from '../../models/entities/poll';
 import { isDuplicateKeyValueError } from '../../misc/is-duplicate-key-value-error';
+import { tanzakuColors } from '../../types';
 
 type Option = {
 	createdAt?: Date | null;
@@ -23,7 +23,6 @@ type Option = {
 	text?: string | null;
 	reply?: Note | null;
 	renote?: Note | null;
-	files?: DriveFile[] | null;
 	poll?: IPoll | null;
 	viaMobile?: boolean | null;
 	localOnly?: boolean | null;
@@ -119,7 +118,6 @@ async function insertNote(user: User, data: Option, tags: string[], emojis: stri
 	const insert = new Note({
 		id: genId(data.createdAt!),
 		createdAt: data.createdAt!,
-		fileIds: data.files ? data.files.map(file => file.id) : [],
 		replyId: data.reply ? data.reply.id : null,
 		renoteId: data.renote ? data.renote.id : null,
 		name: data.name,
@@ -132,9 +130,8 @@ async function insertNote(user: User, data: Option, tags: string[], emojis: stri
 		viaMobile: data.viaMobile!,
 		localOnly: data.localOnly!,
 		visibility: data.visibility as any,
-		tanzakuColor: data.tanzakuColor!,
+		tanzakuColor: data.tanzakuColor! as unknown as typeof tanzakuColors[number],
 		tanabataYear: data.tanabataYear,
-		attachedFileTypes: data.files ? data.files.map(file => file.type) : [],
 
 		isAnnouncement: data.isAnnouncement!,
 

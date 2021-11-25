@@ -89,16 +89,12 @@ export default Vue.extend({
 .mk-notes {
 	> .notes {
 		> ::v-deep *:not(:last-child) {
-			margin-bottom: var(--marginFull);
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
 		}
-	}
-
-	&.max-width_500px {
-		> .notes {
-			> ::v-deep *:not(:last-child) {
-				//margin-bottom: var(--marginHalf);
-				margin-bottom: 0;
-			}
+		> ::v-deep *:not(:first-child) {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
 		}
 	}
 }

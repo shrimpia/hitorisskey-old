@@ -1,17 +1,9 @@
 <template>
-<div class="gafaadew"
-	@dragover.stop="onDragover"
-	@dragenter="onDragenter"
-	@dragleave="onDragleave"
-	@drop.stop="onDrop"
->
+<div class="gafaadew">
 	<div class="form" :class="{ fixed }">
 		<input v-show="useCw" ref="cw" class="cw" v-model="cw" :placeholder="$t('annotation')" v-autocomplete="{ model: 'cw' }">
-		<textarea v-model="text" class="text" :class="{ withCw: useCw }" ref="text" :disabled="posting" :placeholder="placeholder" v-autocomplete="{ model: 'text' }" @keydown="onKeydown" @paste="onPaste"></textarea>
-		<x-post-form-attaches class="attaches" :files="files"/>
-		<x-uploader ref="uploader" @uploaded="attachMedia" @change="onChangeUploadings"/>
+		<textarea v-model="text" class="text" :class="{ withCw: useCw }" ref="text" :disabled="posting" :placeholder="placeholder" v-autocomplete="{ model: 'text' }" @keydown="onKeydown"></textarea>
 		<footer>
-			<button class="_button" v-tooltip="$t('attachFile')" @click="chooseFileFrom"><fa :icon="faPhotoVideo"/></button>
 			<button class="_button" v-tooltip="$t('useCw')" @click="useCw = !useCw" :class="{ active: useCw }"><fa :icon="faEyeSlash"/></button>
 			<button class="_button" v-tooltip="$t('emoji')" @click="insertEmoji"><fa :icon="faLaughSquint"/></button>
 			<button class="_button" v-tooltip="$t('officialNote')" v-if="$store.state.i.isAdmin || $store.state.i.isModerator" @click="announcement = !announcement" :class="{ active: announcement }"><fa :icon="faBullhorn"/></button>
@@ -21,7 +13,6 @@
 				<button class="submit _buttonPrimary" :disabled="!canPost" @click="post"><fa :icon="faPaperPlane"/></button>
 			</div>
 		</footer>
-		<input ref="file" class="file _button" type="file" multiple="multiple" @change="onChangeFile"/>
 	</div>
 </div>
 </template>
@@ -34,13 +25,9 @@ import insertTextAtCursor from 'insert-text-at-cursor';
 import { length } from 'stringz';
 import { parse } from '../../mfm/parse';
 import { unique } from '../../prelude/array';
-import { formatTimeString } from '../../misc/format-time-string';
-import { selectDriveFile } from '../scripts/select-drive-file';
 
 export default Vue.extend({
 	components: {
-		XUploader: () => import('./uploader.vue').then(m => m.default),
-		XPostFormAttaches: () => import('./post-form-attaches.vue').then(m => m.default),
 	},
 
 	props: {
@@ -68,14 +55,11 @@ export default Vue.extend({
 		return {
 			posting: false,
 			text: '',
-			files: [],
-			uploadings: [],
 			useCw: false,
 			cw: null,
 			isPrivate: false,
 			announcement: false,
 			autocomplete: null,
-			draghover: false,
 			recentHashtags: JSON.parse(localStorage.getItem('hashtags') || '[]'),
 			faPaperPlane, faUpload, faUnlock, faEyeSlash, faLaughSquint, faPhotoVideo, faCloud, faBullhorn, faLock
 		};
@@ -106,7 +90,7 @@ export default Vue.extend({
 
 		canPost(): boolean {
 			return !this.posting &&
-				(1 <= this.text.length || 1 <= this.files.length) &&
+				1 <= this.text.length &&
 				(length(this.text.trim()) <= this.max);
 		},
 
@@ -136,7 +120,6 @@ export default Vue.extend({
 					this.text = draft.data.text;
 					this.useCw = draft.data.useCw;
 					this.cw = draft.data.cw;
-					this.files = (draft.data.files || []).filter(e => e);
 				}
 			}
 
@@ -144,7 +127,6 @@ export default Vue.extend({
 			if (this.initialNote) {
 				const init = this.initialNote;
 				this.text = init.text ? init.text : '';
-				this.files = init.files;
 				this.cw = init.cw;
 				this.isPrivate = init.visibility === 'followers';
 				this.announcement = init.announcement;
@@ -160,7 +142,6 @@ export default Vue.extend({
 			this.$watch('text', () => this.saveDraft());
 			this.$watch('useCw', () => this.saveDraft());
 			this.$watch('cw', () => this.saveDraft());
-			this.$watch('files', () => this.saveDraft());
 		},
 		
 		setVisibility() {
@@ -181,118 +162,12 @@ export default Vue.extend({
 			(this.$refs.text as any).focus();
 		},
 
-		chooseFileFrom(ev) {
-			this.$root.menu({
-				items: [{
-					type: 'label',
-					text: this.$t('attachFile'),
-				}, {
-					text: this.$t('upload'),
-					icon: faUpload,
-					action: () => { this.chooseFileFromPc() }
-				}, {
-					text: this.$t('fromDrive'),
-					icon: faCloud,
-					action: () => { this.chooseFileFromDrive() }
-				}],
-				source: ev.currentTarget || ev.target
-			});
-		},
-
-		chooseFileFromPc() {
-			(this.$refs.file as any).click();
-		},
-
-		chooseFileFromDrive() {
-			selectDriveFile(this.$root, true).then(files => {
-				for (const file of files) {
-					this.attachMedia(file);
-				}
-			});
-		},
-
-		attachMedia(driveFile) {
-			this.files.push(driveFile);
-		},
-
-		detachMedia(id) {
-			this.files = this.files.filter(x => x.id != id);
-		},
-
-		updateMedia(file) {
-			Vue.set(this.files, this.files.findIndex(x => x.id === file.id), file);
-		},
-
-		onChangeFile() {
-			for (const x of Array.from((this.$refs.file as any).files)) this.upload(x);
-		},
-
-		upload(file: File, name?: string) {
-			(this.$refs.uploader as any).upload(file, this.$store.state.settings.uploadFolder, name);
-		},
-
-		onChangeUploadings(uploads) {
-			this.$emit('change-uploadings', uploads);
-		},
-
 		clear() {
 			this.text = '';
-			this.files = [];
 		},
 
 		onKeydown(e) {
 			if ((e.which == 10 || e.which == 13) && (e.ctrlKey || e.metaKey) && this.canPost) this.post();
-		},
-
-		async onPaste(e: ClipboardEvent) {
-			for (const { item, i } of Array.from(e.clipboardData.items).map((item, i) => ({item, i}))) {
-				if (item.kind == 'file') {
-					const file = item.getAsFile();
-					const lio = file.name.lastIndexOf('.');
-					const ext = lio >= 0 ? file.name.slice(lio) : '';
-					const formatted = `${formatTimeString(new Date(file.lastModified), this.$store.state.settings.pastedFileName).replace(/{{number}}/g, `${i + 1}`)}${ext}`;
-					this.upload(file, formatted);
-				}
-			}
-		},
-
-		onDragover(e) {
-			if (!e.dataTransfer.items[0]) return;
-			const isFile = e.dataTransfer.items[0].kind == 'file';
-			const isDriveFile = e.dataTransfer.types[0] == 'mk_drive_file';
-			if (isFile || isDriveFile) {
-				e.preventDefault();
-				this.draghover = true;
-				e.dataTransfer.dropEffect = e.dataTransfer.effectAllowed == 'all' ? 'copy' : 'move';
-			}
-		},
-
-		onDragenter(e) {
-			this.draghover = true;
-		},
-
-		onDragleave(e) {
-			this.draghover = false;
-		},
-
-		onDrop(e): void {
-			this.draghover = false;
-
-			// ファイルだったら
-			if (e.dataTransfer.files.length > 0) {
-				e.preventDefault();
-				for (const x of Array.from(e.dataTransfer.files)) this.upload(x);
-				return;
-			}
-
-			//#region ドライブのファイル
-			const driveFile = e.dataTransfer.getData('mk_drive_file');
-			if (driveFile != null && driveFile != '') {
-				const file = JSON.parse(driveFile);
-				this.files.push(file);
-				e.preventDefault();
-			}
-			//#endregion
 		},
 
 		saveDraft() {
@@ -306,7 +181,6 @@ export default Vue.extend({
 					text: this.text,
 					useCw: this.useCw,
 					cw: this.cw,
-					files: this.files,
 				}
 			};
 
@@ -325,7 +199,6 @@ export default Vue.extend({
 			this.posting = true;
 			this.$root.api('notes/create', {
 				text: this.text == '' ? undefined : this.text,
-				fileIds: this.files.length > 0 ? this.files.map(f => f.id) : undefined,
 				announcement: this.announcement,
 				visibility: this.isPrivate ? 'followers' : 'public',
 				cw: this.useCw ? this.cw || '' : undefined,
