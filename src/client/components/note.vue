@@ -18,19 +18,16 @@
 					<div class="text">
 						<mfm v-if="appearNote.text" :text="appearNote.text" :author="appearNote.user" :i="$store.state.i" :custom-emojis="appearNote.emojis"/>
 					</div>
-					<div class="files" v-if="appearNote.files.length > 0">
-						<x-media-list :media-list="appearNote.files" :parent-element="noteBody"/>
-					</div>
 					<mk-url-preview v-for="url in urls" :url="url" :key="url" :compact="true" class="url-preview"/>
 				</div>
 			</div>
 			<footer v-if="appearNote.deletedAt == null" class="footer">
 				<x-reactions-viewer :note="appearNote" ref="reactionsViewer"/>
 				<button v-if="appearNote.myReaction == null" class="button _button" @click="react()" ref="reactButton">
-					<fa :icon="faPlus" fixed-width/>
+					<fa :icon="faSmile" fixed-width/>
 				</button>
 				<button v-if="appearNote.myReaction != null" class="button _button reacted" @click="undoReact(appearNote)">
-					<fa :icon="faMinus" fixed-width/>
+					<fa :icon="faSmile" fixed-width/>
 				</button>
 				<button v-if="appearNote.isMyNote" v-tooltip="$t('deleteAndEdit')" class="button _button" @click="delEdit()">
 					<fa :icon="faEdit"/>						
@@ -50,13 +47,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { faPlus, faMinus, faReply, faEllipsisH, faExclamationCircle, faInfoCircle, faCopy, faLink } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt, faEdit} from '@fortawesome/free-regular-svg-icons';
+import { faReply, faEllipsisH, faExclamationCircle, faInfoCircle, faCopy, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faSmile, faTrashAlt, faEdit} from '@fortawesome/free-regular-svg-icons';
 import { parse } from '../../mfm/parse';
 import { sum, unique } from '../../prelude/array';
 import XNoteHeader from './note-header.vue';
 import XReactionsViewer from './reactions-viewer.vue';
-import XMediaList from './media-list.vue';
 import XCwButton from './cw-button.vue';
 import MkUrlPreview from './url-preview.vue';
 import MkReactionPicker from './reaction-picker.vue';
@@ -71,7 +67,6 @@ export default Vue.extend({
 	components: {
 		XNoteHeader,
 		XReactionsViewer,
-		XMediaList,
 		XCwButton,
 		MkUrlPreview,
 	},
@@ -91,7 +86,7 @@ export default Vue.extend({
 			replies: [],
 			showContent: false,
 			hideThisNote: false,
-			faEdit, faPlus, faMinus, faReply, faEllipsisH, faTrashAlt, faExclamationCircle
+			faEdit, faSmile, faReply, faEllipsisH, faTrashAlt, faExclamationCircle
 		};
 	},
 
@@ -242,7 +237,6 @@ export default Vue.extend({
 				case 'deleted': {
 					Vue.set(this.appearNote, 'deletedAt', body.deletedAt);
 					this.appearNote.text = null;
-					this.appearNote.fileIds = [];
 					this.appearNote.cw = null;
 					break;
 				}

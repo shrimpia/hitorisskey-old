@@ -15,7 +15,6 @@ export const router = new VueRouter({
 		{ path: '/everyone', name: 'everyone', component: MkIndex },
 		{ path: '/announcements', component: page('announcements') },
 		{ path: '/about', component: page('about') },
-		{ path: '/about-misskey', component: page('about-misskey') },
 		{ path: '/tanabata', component: page(new Date().getMonth() + 1 === 7 ? 'tanabata' : 'not-found') },
 		{ path: '/docs', component: page('docs') },
 		{ path: '/docs/:doc', component: page('doc'), props: true },
@@ -30,7 +29,6 @@ export const router = new VueRouter({
 		{ path: '/instance/users/:user', component: page('instance/users.user') },
 		{ path: '/instance/users/:user/notes', component: page('instance/users.user.notes') },
 		{ path: '/instance/files', component: page('instance/files') },
-		{ path: '/instance/queue', component: page('instance/queue') },
 		{ path: '/instance/settings', component: page('instance/settings') },
 		{ path: '/instance/announcements', component: page('instance/announcements') },
 		{ path: '/instance/reported-notes', component: page('instance/reported-notes') },
@@ -38,7 +36,6 @@ export const router = new VueRouter({
 		{ path: '/tags/:tag', component: page('tag') },
 		{ path: '/auth/:token', component: page('auth') },
 		{ path: '/miauth/:session', component: page('miauth') },
-		{ path: '/share', component: page('share') },
 		{ path: '*', component: page('not-found') }
 	],
 	// なんかHacky

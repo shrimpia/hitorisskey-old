@@ -2,7 +2,7 @@
 <div class="mk-note-page">
 	<portal to="title" v-if="note">
 		<mfm 
-			:text="$t('noteOf')"
+			:text="$t('note')"
 			:plain="true" :nowrap="true" :custom-emojis="note.user.emojis" :is-note="false"
 		/>
 	</portal>

@@ -97,6 +97,9 @@ export default Vue.extend({
 .sqadhkmv {
 	> .separator {
 		text-align: center;
+		background: var(--bg);
+		border-left: 1px solid var(--panelBorder);
+		border-right: 1px solid var(--panelBorder);
 
 		> .date {
 			display: inline-block;
