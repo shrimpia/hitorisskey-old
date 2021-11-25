@@ -55,13 +55,13 @@
 					<router-link v-if="new Date().getMonth() + 1 === 7" class="item" active-class="active" to="/tanabata">
 						<fa :icon="faStar" fixed-width/><span class="text">{{ $t('_tanabata.title') }}</span>
 					</router-link>
-					<router-link class="item" active-class="active" to="/my/drive">
-						<fa :icon="faCloud" fixed-width/><span class="text">{{ $t('drive') }}</span>
-					</router-link>
 				</template>
 				<router-link class="item" active-class="active" to="/announcements">
-					<fa :icon="faBroadcastTower" fixed-width/><span class="text">{{ $t('announcements') }}</span>
+					<fa :icon="faBell" fixed-width/><span class="text">{{ $t('announcements') }}</span>
 					<i v-if="$store.getters.isSignedIn && $store.state.i.hasUnreadAnnouncement"><fa :icon="faCircle"/></i>
+				</router-link>
+				<router-link v-if="$store.getters.isSignedIn" class="item" active-class="active" to="/my/drive">
+					<fa :icon="faCloud" fixed-width/><span class="text">{{ $t('drive') }}</span>
 				</router-link>
 				<button class="item _button" :class="{ active: $route.path === '/instance' || $route.path.startsWith('/instance/') }" v-if="$store.getters.isSignedIn && ($store.state.i.isAdmin || $store.state.i.isModerator)" @click="oepnInstanceMenu">
 					<fa :icon="faServer" fixed-width/><span class="text">{{ $t('instance') }}</span>
@@ -108,7 +108,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { faArrowLeft, faGripVertical, faSlidersH, faHashtag, faBroadcastTower, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faInfoCircle, faQuestionCircle, faExclamationCircle, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faGripVertical, faSlidersH, faHashtag, faBell, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faInfoCircle, faQuestionCircle, faExclamationCircle, faStar } from '@fortawesome/free-solid-svg-icons';
 import { faLaugh, faComments } from '@fortawesome/free-regular-svg-icons';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { v4 as uuid } from 'uuid';
@@ -139,7 +139,7 @@ export default Vue.extend({
 			isMobile:  window.innerWidth < 650,
 			canBack: false,
 			wallpaper: localStorage.getItem('wallpaper') != null,
-			faArrowLeft, faGripVertical, faSlidersH, faComments, faHashtag, faBroadcastTower, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faLaugh, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faQuestionCircle, faStar, faInfoCircle
+			faArrowLeft, faGripVertical, faSlidersH, faComments, faHashtag, faBell, faEllipsisH, faBars, faTimes, faCog, faUser, faHome, faCircle, faPlus, faLaugh, faUsers, faTachometerAlt, faExchangeAlt, faCloud, faServer, faQuestionCircle, faStar, faInfoCircle
 		};
 	},
 
@@ -277,7 +277,7 @@ export default Vue.extend({
 					type: 'link',
 					text: this.$t('announcements'),
 					to: '/instance/announcements',
-					icon: faBroadcastTower,
+					icon: faBell,
 				}, {
 					type: 'link',
 					text: this.$t('reportedNotes'),
@@ -349,6 +349,8 @@ export default Vue.extend({
 	}
 });
 </script>
+
+<style lang="scss" src="./style.scss"></style>
 
 <style lang="scss" scoped>
 .nav-enter-active,

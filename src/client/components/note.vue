@@ -27,7 +27,7 @@
 					<fa :icon="faSmile" fixed-width/>
 				</button>
 				<button v-if="appearNote.myReaction != null" class="button _button reacted" @click="undoReact(appearNote)">
-					<fa :icon="faMinus" fixed-width/>
+					<fa :icon="faSmile" fixed-width/>
 				</button>
 				<button v-if="appearNote.isMyNote" v-tooltip="$t('deleteAndEdit')" class="button _button" @click="delEdit()">
 					<fa :icon="faEdit"/>						
@@ -47,13 +47,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { faMinus, faReply, faEllipsisH, faExclamationCircle, faInfoCircle, faCopy, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faReply, faEllipsisH, faExclamationCircle, faInfoCircle, faCopy, faLink } from '@fortawesome/free-solid-svg-icons';
 import { faSmile, faTrashAlt, faEdit} from '@fortawesome/free-regular-svg-icons';
 import { parse } from '../../mfm/parse';
 import { sum, unique } from '../../prelude/array';
 import XNoteHeader from './note-header.vue';
 import XReactionsViewer from './reactions-viewer.vue';
-import XMediaList from './media-list.vue';
 import XCwButton from './cw-button.vue';
 import MkUrlPreview from './url-preview.vue';
 import MkReactionPicker from './reaction-picker.vue';
@@ -68,7 +67,6 @@ export default Vue.extend({
 	components: {
 		XNoteHeader,
 		XReactionsViewer,
-		XMediaList,
 		XCwButton,
 		MkUrlPreview,
 	},
@@ -88,7 +86,7 @@ export default Vue.extend({
 			replies: [],
 			showContent: false,
 			hideThisNote: false,
-			faEdit, faSmile, faMinus, faReply, faEllipsisH, faTrashAlt, faExclamationCircle
+			faEdit, faSmile, faReply, faEllipsisH, faTrashAlt, faExclamationCircle
 		};
 	},
 

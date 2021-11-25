@@ -35,7 +35,6 @@
 			</mk-switch>
 		</div>
 		<div class="_content">
-			<mk-switch v-model="imageNewTab">{{ $t('openImageInNewTab') }}</mk-switch>
 			<mk-switch v-model="disableAnimatedMfm">{{ $t('disableAnimatedMfm') }}</mk-switch>
 			<mk-switch v-model="disableShowingAnimatedImages">{{ $t('disableShowingAnimatedImages') }}</mk-switch>
 			<mk-switch v-model="reduceAnimation">{{ $t('reduceUiAnimation') }}</mk-switch>
