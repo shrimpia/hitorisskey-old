@@ -5,9 +5,7 @@ import create from '../../../../services/note/create';
 import define from '../../define';
 import { fetchMeta } from '../../../../misc/fetch-meta';
 import { ApiError } from '../../error';
-import { ID } from '../../../../misc/cafy-id';
-import { DriveFiles, Notes } from '../../../../models';
-import { DriveFile } from '../../../../models/entities/drive-file';
+import { Notes } from '../../../../models';
 import { DB_MAX_NOTE_TEXT_LENGTH } from '../../../../misc/hard-limits';
 import { noteVisibilities, tanzakuColors } from '../../../../types';
 import { isTanabata } from '../../../../misc/is-tanabata';
@@ -100,21 +98,6 @@ export const meta = {
 			}
 		},
 
-		fileIds: {
-			validator: $.optional.arr($.type(ID)).unique().range(1, 4),
-			desc: {
-				'ja-JP': '添付するファイル'
-			}
-		},
-
-		mediaIds: {
-			validator: $.optional.arr($.type(ID)).unique().range(1, 4),
-			deprecated: true,
-			desc: {
-				'ja-JP': '添付するファイル (このパラメータは廃止予定です。代わりに fileIds を使ってください。)'
-			}
-		},
-
 		tanzakuColor: {
 			validator: $.optional.str.or(tanzakuColors as unknown as string[]),
 		},
@@ -135,7 +118,7 @@ export const meta = {
 
 	errors: {
 		contentRequired: {
-			message: 'Content required. You need to set text or fileIds.',
+			message: 'Content required. You need to set text.',
 			code: 'CONTENT_REQUIRED',
 			id: '6f57e42b-c348-439b-bc45-993995cc515a'
 		},
@@ -168,19 +151,8 @@ export const meta = {
 };
 
 export default define(meta, async (ps, user) => {
-	let files: DriveFile[] = [];
-	const fileIds = ps.fileIds != null ? ps.fileIds : ps.mediaIds != null ? ps.mediaIds : null;
-	if (fileIds != null) {
-		files = (await Promise.all(fileIds.map(fileId =>
-			DriveFiles.findOne({
-				id: fileId,
-				userId: user.id
-			})
-		))).filter(file => file != null) as DriveFile[];
-	}
-
-	// テキストが無いかつ添付ファイルが無かったらエラー
-	if (!(ps.text || files.length)) {
+	// テキストが無かったらエラー
+	if (!ps.text) {
 		throw new ApiError(meta.errors.contentRequired);
 	}
 
@@ -196,8 +168,8 @@ export default define(meta, async (ps, user) => {
 			throw new ApiError(meta.errors.outOfTanabataSeason);
 		}
 
-		// ファイルを含んでいる / 公式ノート / 文字数が50以上 のどれかならエラー
-		if (files.length || ps.announcement || (ps.text && ps.text.length > 50)) {
+		// 公式ノート / 文字数が50以上 のどれかならエラー
+		if (ps.announcement || (ps.text && ps.text.length > 50)) {
 			throw new ApiError(meta.errors.invalidTanzakuFormat);
 		}
 
@@ -214,7 +186,6 @@ export default define(meta, async (ps, user) => {
 	// 投稿を作成
 	const note = await create(user, {
 		createdAt: new Date(),
-		files: files,
 		text: ps.text || undefined,
 		cw: ps.cw,
 		visibility: ps.visibility,
