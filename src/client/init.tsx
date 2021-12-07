@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Global } from '@emotion/react';
+import { Provider } from 'react-redux';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import { Index } from './pages/Index';
 import { globalStyle } from './globalStyle';
+import { store } from './store';
 
 import 'animate.css';
 import 'xeltica-ui/dist/css/xeltica-ui.min.css';
-import { Provider } from 'react-redux';
-import { store } from './store';
+import { Layout } from './layout';
 
 const link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -23,7 +29,14 @@ const App: React.VFC = () => {
 		<Provider store={store}>
 			<>
 				<Global styles={globalStyle} />
-				<Index />
+				<BrowserRouter>
+					<Layout>
+						<Routes>
+							<Route path="/" element={<Index />}>
+							</Route>
+						</Routes>
+					</Layout>
+				</BrowserRouter>
 			</>
 		</Provider>
 	);
