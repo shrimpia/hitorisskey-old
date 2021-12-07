@@ -12,5 +12,5 @@ export const floatInKeyFrame = keyframes`
 `;
 
 export const floatInAnimationStyle = css`
-	animation: ${floatInKeyFrame} 1s ease-in-out both;
+	animation: ${floatInKeyFrame} 0.5s ease-in-out both;
 `;
