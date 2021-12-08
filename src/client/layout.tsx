@@ -13,16 +13,23 @@ import {
 import { useSelector } from "./store";
 
 const LayoutWrapper = styled.div`
-	width: 100vw;
-	height: 100vh;
+	position: relative;
 `;
 
 const Sidebar = styled.nav`
-	width: 256px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 288px;
+	min-height: 100vh;
+	padding: var(--margin);
+	padding-top: calc(var(--margin) * 2);
+	border-right: 1px solid var(--tone-2);
 `;
 
 const Item = styled.main`
 	flex: 1;
+	margin-left: ${32 + 256}px;
 `;
 
 export const Layout: React.FC = ({children}) => {
@@ -34,10 +41,10 @@ export const Layout: React.FC = ({children}) => {
 	const itemClassName: NavLinkProps['className'] = ({isActive}) => `item ${isActive ? 'active' : ''}`;
 
 	return requirePlain ? <>{children}</> : (
-		<LayoutWrapper className="hstack container">
+		<LayoutWrapper>
 			<Sidebar>
-				<h1 className="text-dimmed text-size-large mb-2" style={{borderBottom: 'none'}}>ひとりすきー</h1>
-				<div className="menu large">
+				<h1 className="text-dimmed text-size-large mb-2 select-none" style={{borderBottom: 'none'}}>ひとりすきー</h1>
+				<div className="menu">
 					<section>
 						<NavLink className="item" to="/">
 							<span className="icon"><FaHome /></span> タイムライン

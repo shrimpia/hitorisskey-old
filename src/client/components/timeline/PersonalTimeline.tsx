@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styled from "@emotion/styled";
 import { useDispatch } from 'react-redux';
 
-import { TimelineType } from '../../models/timeline-type';
 import { useTimelineQuery } from '../../api';
 import { Note } from '../../models/note';
+import { NotesListView } from '../NotesListView';
 import { Spinner } from '../primitive/Spinner';
-import { NoteView } from '../NoteView';
 
-export type TimelineProp = {
-	src: TimelineType,
-};
 
-const Cards = styled.div`
-	> .card:not(:last-child) {
-		border-bottom: 1px solid var(--tone-2);
-	}
-`;
-
-export const Timeline: React.VFC<TimelineProp> = () => {
+export const PersonalTimeline: React.VFC = () => {
 	const dispatch = useDispatch();
 
 	const [currentUntilId, setCurrentUntilId] = useState<string | undefined>(undefined);
@@ -35,10 +24,8 @@ export const Timeline: React.VFC<TimelineProp> = () => {
 	}, [data]);
 
 	return (
-		<div className="vstack">
-			<Cards className="vgroup">
-				{notes.map(note => <NoteView note={note} />)}
-			</Cards>
+		<div className="vstack animate-fade">
+			{data && <NotesListView notes={data} />}
 			<div className="flex f-center">{isLoading && <Spinner />}</div>
 		</div>
 	);

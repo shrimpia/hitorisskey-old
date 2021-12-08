@@ -26,7 +26,7 @@ export const NoteView: React.VFC<NoteProp> = ({note}) => {
 	}, [isCwOpen]);
 
 	return (
-		<div className="card shadow-1" key={note.id}>
+		<div className="card shadow-1 animate-fade" key={note.id}>
 			<div className="body vstack dense" style={{height: '100%'}}>
 				{hasCw && (
 					<div className="cw mb-2">
