@@ -53,7 +53,7 @@ export const Layout: React.FC = ({children}) => {
 							<span className="icon"><FaBell /></span> お知らせ
 						</NavLink>
 						<NavLink className={itemClassName} to="/bottle-mail">
-							<span className="icon"><FaEnvelope /></span> ボトルメール <sup>(Beta)</sup>
+							<span className="icon"><FaEnvelope /></span> ボトルメール <sup className="text-dimmed">(Beta)</sup>
 						</NavLink>
 						<NavLink className={itemClassName} to="/settings">
 							<span className="icon"><FaCog /></span> 設定
