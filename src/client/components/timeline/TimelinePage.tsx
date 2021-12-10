@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 
 import { PersonalTimeline } from './PersonalTimeline';
-import { TimelineType } from '../../models/timeline-type';
 import { EveryoneTimeline } from './EveryoneTimeline';
+import { useSelector } from '../../store';
+import { useDispatch } from 'react-redux';
+import { set } from '../../store/slices/settingSlice';
+import { TimelineType } from '../../models/unions';
+import { NowTimeline } from './NowTimeline';
 
 const Header = styled.header`
 	position: sticky;
@@ -13,7 +17,12 @@ const Header = styled.header`
 `;
 
 export const TimelinePage: React.VFC = () => {
-	const [src, setSrc] = useState<TimelineType>('personal');
+	const dispatch = useDispatch();
+	const src = useSelector(state => state.setting.currentTimeline);
+
+	const setSrc = useCallback((tl: TimelineType) => dispatch(set({
+		currentTimeline: tl
+	})), []);
 
 	return (
 		<>
@@ -30,6 +39,7 @@ export const TimelinePage: React.VFC = () => {
 			<div className="pa-2">
 				{src === 'personal' && <PersonalTimeline />}
 				{src === 'everyone' && <EveryoneTimeline />}
+				{src === 'now' && <NowTimeline />}
 			</div>
 		</>
 	);

@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface SessionSlice {
+interface SessionState {
   token: string | null;
 }
 
-const initialState: SessionSlice = {
-  token: localStorage.getItem('i'),
+const initialState: SessionState = {
+  token: null,
 }
 
 export const sessionSlice = createSlice({
@@ -14,11 +14,9 @@ export const sessionSlice = createSlice({
   reducers: {
 		setToken(state, action: PayloadAction<string>) {
 			state.token = action.payload;
-			localStorage.setItem('i', state.token);
 		},
 		clearToken(state) {
 			state.token = null;
-			localStorage.removeItem('i');
 		},
   },
 });

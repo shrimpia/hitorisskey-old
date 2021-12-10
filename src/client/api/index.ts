@@ -8,14 +8,6 @@ import { GetTimelineProp } from './request-properties/get-timeline';
 import { SignInProp } from './request-properties/signin';
 import { SignUpProp } from './request-properties/signup';
 
-const appendToken = (body: any) => {
-	const i = localStorage.getItem('i');
-	if (!i) return body;
-	return {
-		...body, i,
-	};
-};
-
 // Define a service using a base URL and expected endpoints
 export const api = createApi({
   reducerPath: 'api',
@@ -31,35 +23,35 @@ export const api = createApi({
 			query: (body) => ({
 				url: 'signup',
 				method: 'POST',
-				body: appendToken(body),
+				body,
 			})
 		}),
 		signIn: builder.mutation<SignInResponse, SignInProp>({
 			query: (body) => ({
 				url: 'signin',
 				method: 'POST',
-				body: appendToken(body),
+				body,
 			})
 		}),
 		i: builder.query<User, void>({
-			query: () => ({
+			query: (body) => ({
 				url: 'i',
 				method: 'POST',
-				body: appendToken({}),
+				body,
 			})
 		}),
 		timeline: builder.query<Note[], GetTimelineProp>({
-			query: (opts) => ({
+			query: (body) => ({
 				url: 'notes/timeline',
 				method: 'POST',
-				body: appendToken(opts),
+				body,
 			})
 		}),
 		localTimeline: builder.query<Note[], GetTimelineProp>({
-			query: (opts) => ({
+			query: (body) => ({
 				url: 'notes/local-timeline',
 				method: 'POST',
-				body: appendToken(opts),
+				body,
 			})
 		}),
   }),

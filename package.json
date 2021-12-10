@@ -193,6 +193,7 @@
 		"redis": "3.1.2",
 		"redis-lock": "0.1.4",
 		"redux": "4.1.2",
+		"redux-persist": "6.0.0",
 		"reflect-metadata": "0.1.13",
 		"regenerator-runtime": "0.13.5",
 		"rename": "1.0.4",
