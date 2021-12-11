@@ -10144,8 +10144,8 @@ ws@7.3.0:
   integrity sha512-iFtXzngZVXPGgpTlP1rBqsUK82p9tKqsWRPg5L56egiljujJT3vGAYnHANvFxBieXrTFavhzhxW52jnaWV+w2w==
 
 xeltica-ui@xeltica/ui:
-  version "1.0.0-alpha.11"
-  resolved "https://codeload.github.com/xeltica/ui/tar.gz/421dfd141464b17034333d4b4e2822a97490183a"
+  version "1.0.0-alpha.12"
+  resolved "https://codeload.github.com/xeltica/ui/tar.gz/66ff364a5b4aac3ce6619ddd3f27a14ad64dfdb3"
 
 xev@2.0.1:
   version "2.0.1"

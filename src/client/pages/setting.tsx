@@ -1,6 +1,10 @@
 import React, { ChangeEventHandler, useCallback } from 'react';
+import { BsKeyFill, BsLockFill, BsShieldLockFill } from 'react-icons/bs';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from '../store';
+import { clearToken } from '../store/slices/sessionSlice';
 import { set } from '../store/slices/settingSlice';
 
 import { HeaderTitle } from '../teleporters';
@@ -9,6 +13,8 @@ type InputEvent = ChangeEventHandler<HTMLInputElement>;
 
 export const SettingPage: React.VFC = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const {
 		themeMode,
 		reduceUIAnimation,
@@ -25,6 +31,11 @@ export const SettingPage: React.VFC = () => {
 	const onCheckReduceTextAnimation = useCallback<InputEvent>((e) => { dispatch(set({ reduceTextAnimation: e.target.checked })); }, []);
 	const onCheckReduceEmojiAnimation = useCallback<InputEvent>((e) => { dispatch(set({ reduceEmojiAnimation: e.target.checked })); }, []);
 	const onCheckUseOsNativeEmojis = useCallback<InputEvent>((e) => { dispatch(set({ useOsNativeEmojis: e.target.checked })); }, []);
+
+	const onClickLogOut = useCallback(() => {
+		dispatch(clearToken());
+		navigate('/');
+	}, []);
 
 	return (
 		<div className="pa-2 vstack">
@@ -79,7 +90,27 @@ export const SettingPage: React.VFC = () => {
 						<h1>ワードミュート</h1>
 						<p className="mt-2">目につくのが嫌な単語や、嫌な話題に使われる単語などをミュートして、タイムラインを快適にしましょう。<br/>単語をミュートしている事実は誰にも伝わらないので、安心して設定できます。</p>
 						<textarea className="input-field"></textarea>
+						<button className="btn primary mt-2">設定を保存する</button>
 					</div>
+				</div>
+				<div className="list-form">
+					<NavLink to="/settings/password" className="item">
+						<span className="icon" style={{lineHeight: 1}}><BsKeyFill /></span>
+						<div className="body"><h1>パスワードを変更する</h1></div>
+					</NavLink>
+					<NavLink to="/settings/password" className="item">
+						<span className="icon" style={{lineHeight: 1}}><BsShieldLockFill /></span>
+						<div className="body">
+							<h1>二段階認証</h1>
+							<p className="desc">設定されていません</p>
+						</div>
+					</NavLink>
+					<button className="item text-danger" onClick={onClickLogOut}>
+						<span className="icon" style={{lineHeight: 1}}><FaSignOutAlt /></span>
+						<div className="body">
+							<h1>ログアウト</h1>
+						</div>
+					</button>
 				</div>
 			</div>
 		</div>

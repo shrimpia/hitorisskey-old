@@ -35,11 +35,9 @@ export const Layout: React.FC = ({children}) => {
 		<LayoutWrapper>
 			<Menu />
 			<Item>
-				<Header>
+				<Header className="shadow-3">
 					<div className="navbar" style={{background: 'var(--bg)'}}>
-						<h1 className="navbar-title text-size-large">
-							<HeaderTitle.Target />
-						</h1>
+						<h1 className="navbar-title text-size-large"><HeaderTitle.Target /></h1>
 					</div>
 					<HeaderComponentSlot.Target />
 				</Header>

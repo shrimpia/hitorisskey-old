@@ -15,9 +15,11 @@ const MenuWrapper = styled.nav`
 	top: 0;
 	width: 288px;
 	min-height: 100vh;
+	z-index: 201;
 	padding: var(--margin);
 	padding-top: calc(var(--margin) * 2);
 	border-right: 1px solid var(--tone-2);
+	background: var(--bg);
 `;
 
 const itemClassName: NavLinkProps['className'] = ({isActive}) => `item ${isActive ? 'active' : ''}`;

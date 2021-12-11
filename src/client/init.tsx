@@ -18,6 +18,7 @@ import { Layout } from './layout';
 
 import 'animate.css';
 import 'xeltica-ui/dist/css/xeltica-ui.min.css';
+import { KoujichuPage } from './pages/koujichu';
 
 const persistor = persistStore(store);
 
@@ -31,6 +32,10 @@ const App: React.VFC = () => {
 					<Layout>
 						<Routes>
 							<Route path="/" element={<Index />} />
+							<Route path="/announcements" element={<KoujichuPage />}/>
+							<Route path="/bottle-mail" element={<KoujichuPage />}/>
+							<Route path="/bottle-mail" element={<KoujichuPage />}/>
+							<Route path="/hashtags" element={<KoujichuPage />}/>
 							<Route path="/settings" element={<SettingPage />}/>
 						</Routes>
 					</Layout>

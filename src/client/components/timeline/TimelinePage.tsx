@@ -9,6 +9,7 @@ import { set } from '../../store/slices/settingSlice';
 import { TimelineType } from '../../models/unions';
 import { NowTimeline } from './NowTimeline';
 import { HeaderComponentSlot, HeaderTitle } from '../../teleporters';
+import { PostFormButton } from '../PostFormButton';
 
 export const TimelinePage: React.VFC = () => {
 	const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export const TimelinePage: React.VFC = () => {
 			{src === 'personal' && <PersonalTimeline />}
 			{src === 'everyone' && <EveryoneTimeline />}
 			{src === 'now' && <NowTimeline />}
+			<PostFormButton />
 		</div>
 	);
 };
