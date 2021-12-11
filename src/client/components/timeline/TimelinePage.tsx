@@ -8,13 +8,7 @@ import { useDispatch } from 'react-redux';
 import { set } from '../../store/slices/settingSlice';
 import { TimelineType } from '../../models/unions';
 import { NowTimeline } from './NowTimeline';
-
-const Header = styled.header`
-	position: sticky;
-	top: 0;
-	z-index: 200;
-	border-bottom: 1px solid var(--tone-2);
-`;
+import { HeaderComponentSlot, HeaderTitle } from '../../teleporters';
 
 export const TimelinePage: React.VFC = () => {
 	const dispatch = useDispatch();
@@ -25,22 +19,18 @@ export const TimelinePage: React.VFC = () => {
 	})), []);
 
 	return (
-		<>
-			<Header>
-				<div className="navbar" style={{background: 'var(--bg)'}}>
-					<h1 className="navbar-title text-size-large">タイムライン</h1>
-				</div>
+		<div className="pa-2">
+			<HeaderTitle.Source>タイムライン</HeaderTitle.Source>
+			<HeaderComponentSlot.Source>
 				<div className="tab" style={{background: 'var(--bg)'}}>
 					<button className={`item ${src === 'everyone' ? 'active' : ''}`} onClick={() => setSrc('everyone')}>みんな</button>
 					<button className={`item ${src === 'personal' ? 'active' : ''}`} onClick={() => setSrc('personal')}>わたし</button>
 					<button className={`item ${src === 'now' ? 'active' : ''}`} onClick={() => setSrc('now')}>なう！</button>
 				</div>
-			</Header>
-			<div className="pa-2">
-				{src === 'personal' && <PersonalTimeline />}
-				{src === 'everyone' && <EveryoneTimeline />}
-				{src === 'now' && <NowTimeline />}
-			</div>
-		</>
+			</HeaderComponentSlot.Source>
+			{src === 'personal' && <PersonalTimeline />}
+			{src === 'everyone' && <EveryoneTimeline />}
+			{src === 'now' && <NowTimeline />}
+		</div>
 	);
 };

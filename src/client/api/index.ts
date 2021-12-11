@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { apiUrl } from '../config'
 import { Meta } from '../models/meta';
 import { Note } from '../models/note';
-import { SignInResponse } from '../models/sign-in-response';
 import { User } from '../models/User';
+import { SignInResponse } from '../models/sign-in-response';
 import { GetTimelineProp } from './request-properties/get-timeline';
 import { SignInProp } from './request-properties/signin';
 import { SignUpProp } from './request-properties/signup';

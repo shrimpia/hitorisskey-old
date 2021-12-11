@@ -8,15 +8,16 @@ import {
   Route,
 } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 import { Index } from './pages/Index';
+import { SettingPage } from './pages/setting';
 import { globalStyle } from './globalStyle';
 import { store } from './store';
 import { Layout } from './layout';
 
 import 'animate.css';
 import 'xeltica-ui/dist/css/xeltica-ui.min.css';
-import { persistStore } from 'redux-persist';
 
 const persistor = persistStore(store);
 
@@ -29,8 +30,8 @@ const App: React.VFC = () => {
 				<BrowserRouter>
 					<Layout>
 						<Routes>
-							<Route path="/" element={<Index />}>
-							</Route>
+							<Route path="/" element={<Index />} />
+							<Route path="/settings" element={<SettingPage />}/>
 						</Routes>
 					</Layout>
 				</BrowserRouter>

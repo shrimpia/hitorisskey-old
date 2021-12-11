@@ -10,6 +10,8 @@ interface SettingState {
 	reduceTextAnimation: boolean,
 	/** UIのアニメーションを減らすかどうか */
 	reduceUIAnimation: boolean,
+	/** 絵文字のアニメーションを減らすかどうか */
+	reduceEmojiAnimation: boolean,
 	/** OS標準の絵文字を使うかどうか */
 	useOsNativeEmojis: boolean,
 	/** 言語設定 */
@@ -30,6 +32,7 @@ export const settingSlice = createSlice({
   initialState,
   reducers: {
 		set(state, {payload}: PayloadAction<Partial<SettingState>>) {
+			console.log(payload);
 			state = Object.assign(state, payload);
 		}
   },
