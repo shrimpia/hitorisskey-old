@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useTimelineQuery } from '../../api';
+import { useReadTimelineQuery } from '../../api';
 import { Note } from '../../models/note';
 import { useSelector } from '../../store';
 import { NotesListView } from '../NotesListView';
@@ -15,7 +15,7 @@ export const PersonalTimeline: React.VFC = () => {
 
 	const [currentUntilId, setCurrentUntilId] = useState<string | undefined>(undefined);
 	const [notes, setNotes] = useState<Note[]>([]);
-	const { data, isLoading, error } = useTimelineQuery({
+	const { data, isLoading, error } = useReadTimelineQuery({
 		limit: 10,
 		untilId: currentUntilId,
 		i: token ?? undefined,

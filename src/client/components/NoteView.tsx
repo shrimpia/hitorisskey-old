@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import React, { useCallback, useState } from "react";
-import { BsEmojiSmile, BsPlus, BsThreeDots, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { BsPlus } from 'react-icons/bs';
+import { FaEdit, FaEllipsisH, FaRegSmile, FaTrashAlt } from "react-icons/fa";
 
 import { Note } from "../models/note";
 
@@ -36,14 +37,14 @@ export const NoteView: React.VFC<NoteProp> = ({note}) => {
 				)}
 				{(!hasCw || isCwOpen) && textView}
 				<div className="hstack dense">
-					<button className="btn flat" css={commandButtonStyle}><BsEmojiSmile/><BsPlus/></button>
+					<button className="btn flat" css={commandButtonStyle}><FaRegSmile/><BsPlus/></button>
 					{note.isMyNote && (
-						<button className="btn flat" css={commandButtonStyle}><BsPencilSquare /></button>
+						<button className="btn flat" css={commandButtonStyle}><FaEdit /></button>
 					)}
 					{note.isMyNote && (
-						<button className="btn flat" css={commandButtonStyle}><BsTrash /></button>
+						<button className="btn flat" css={commandButtonStyle}><FaTrashAlt /></button>
 					)}
-					<button className="btn flat" css={commandButtonStyle}><BsThreeDots/></button>
+					<button className="btn flat" css={commandButtonStyle}><FaEllipsisH/></button>
 				</div>
 			</div>
 		</div>

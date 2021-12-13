@@ -49,10 +49,10 @@ export const Menu: React.VFC = () => {
 						<span className="icon"><FaSearchPlus /></span> ハッシュタグを検索する
 					</NavLink>
 					<NavLink className={itemClassName} to="/hashtags/DTM">
-						<span className="icon">🎵</span> DTM
+						<span className="icon">🎵</span> #DTM
 					</NavLink>
 					<NavLink className={itemClassName} to="/hashtags/new-leaf">
-						<span className="icon">🌸</span> 新生活
+						<span className="icon">🌸</span> #新生活
 					</NavLink>
 				</section>
 			</div>

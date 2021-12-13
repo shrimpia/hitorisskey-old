@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SessionState {
-  token: string | null;
+  token: string | undefined;
 }
 
 const initialState: SessionState = {
-  token: null,
+  token: undefined,
 }
 
 export const sessionSlice = createSlice({
@@ -16,7 +16,7 @@ export const sessionSlice = createSlice({
 			state.token = action.payload;
 		},
 		clearToken(state) {
-			state.token = null;
+			state.token = undefined;
 		},
   },
 });

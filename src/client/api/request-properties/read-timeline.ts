@@ -1,6 +1,6 @@
 import { BaseProp } from "./base";
 
-export interface GetTimelineProp extends BaseProp {
+export interface ReadTimelineProp extends BaseProp {
 	limit?: number;
 	untilId?: string;
 }

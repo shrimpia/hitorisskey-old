@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { isMobile } from '../../config';
 import { floatInAnimationStyle } from '../../animations/float-in';
 import { slogans } from '../../misc/slogans';
-import { useGetMetaQuery } from '../../api';
+import { useReadMetaQuery } from '../../api';
 import { Greeting } from './Greeting';
 import { SignInForm } from './SignInForm';
 import { RecommendNativeAppAlert } from './RecommendNativeAppAlert';
@@ -25,7 +25,7 @@ export const WelcomePage: React.VFC = () => {
 	const slogan = useMemo(() => slogans[Math.floor(Math.random() * slogans.length)], []);
 	const [state, setState] = useState<'welcome' | 'register' | 'login'>('welcome');
 
-	const { data: meta } = useGetMetaQuery();
+	const { data: meta } = useReadMetaQuery();
 
 	return (
 		<Wrapper>

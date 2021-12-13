@@ -4,21 +4,16 @@ import { Meta } from '../models/meta';
 import { Note } from '../models/note';
 import { User } from '../models/User';
 import { SignInResponse } from '../models/sign-in-response';
-import { GetTimelineProp } from './request-properties/get-timeline';
+import { ReadTimelineProp } from './request-properties/read-timeline';
 import { SignInProp } from './request-properties/signin';
 import { SignUpProp } from './request-properties/signup';
+import { NotesCreateProp as CreateNoteProp } from './request-properties/create-note';
 
 // Define a service using a base URL and expected endpoints
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
   endpoints: (builder) => ({
-    getMeta: builder.query<Meta, void>({
-      query: () => ({
-				url: 'meta',
-				method: 'POST',
-			}),
-    }),
 		signUp: builder.mutation<SignInResponse, SignUpProp>({
 			query: (body) => ({
 				url: 'signup',
@@ -33,23 +28,36 @@ export const api = createApi({
 				body,
 			})
 		}),
-		i: builder.query<User, void>({
+    readMeta: builder.query<Meta, void>({
+      query: () => ({
+				url: 'meta',
+				method: 'POST',
+			}),
+    }),
+		readI: builder.query<User, void>({
 			query: (body) => ({
 				url: 'i',
 				method: 'POST',
 				body,
 			})
 		}),
-		timeline: builder.query<Note[], GetTimelineProp>({
+		readTimeline: builder.query<Note[], ReadTimelineProp>({
 			query: (body) => ({
 				url: 'notes/timeline',
 				method: 'POST',
 				body,
 			})
 		}),
-		localTimeline: builder.query<Note[], GetTimelineProp>({
+		readLocalTimeline: builder.query<Note[], ReadTimelineProp>({
 			query: (body) => ({
 				url: 'notes/local-timeline',
+				method: 'POST',
+				body,
+			})
+		}),
+		createNote: builder.mutation<Note, CreateNoteProp>({
+			query: (body) => ({
+				url: 'notes/create',
 				method: 'POST',
 				body,
 			})
@@ -58,10 +66,11 @@ export const api = createApi({
 })
 
 export const {
-	useGetMetaQuery,
-	useIQuery,
-	useTimelineQuery,
-	useLocalTimelineQuery,
 	useSignUpMutation,
 	useSignInMutation,
+	useReadMetaQuery,
+	useReadIQuery,
+	useReadTimelineQuery,
+	useReadLocalTimelineQuery,
+	useCreateNoteMutation,
 } = api;
